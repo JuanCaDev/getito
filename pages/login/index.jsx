@@ -23,7 +23,7 @@ export default function LoginPage() {
   const handleClick = () => {
     if (formValues.password === "pwd") {
       console.log("Sesión iniciada")
-      router.push(`http://auth.mercadolibre.com.co/authorization?response_type=code&client_id=${process.env.APP_PUBLIC_ML_CLIENTE_ID}&redirect_uri=https://getito.vercel.app/token`)
+      router.push(`http://auth.mercadolibre.com.co/authorization?response_type=code&client_id=${process.env.APP_PUBLIC_ML_CLIENT_ID}&redirect_uri=https://getito.vercel.app/token`)
     } else {
       console.error("Si no la sabes mejor no entres ;)")
       setErrorMessage("Si no la sabes mejor no entres ;)")
