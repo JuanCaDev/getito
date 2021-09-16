@@ -1,15 +1,34 @@
-import '../styles/index.css'
+import { SWRConfig } from 'swr'
 // import Footer from '@/components/footer'
-
 import { ChakraProvider } from "@chakra-ui/react"
+import Axios from 'axios'
+import Cookies from 'js-cookie'
+
+import '../styles/index.css'
+
+Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 function MyApp({ Component, pageProps }) {
+  const accessToken = Cookies.get('access_token') || "";
+
   return (
     <>
-      <ChakraProvider>
-        <Component {...pageProps} />
-        {/* <Footer /> */}
-      </ChakraProvider>
+      <SWRConfig
+        value={{
+          fetcher: (url, headersValue) =>
+            Axios(url, {
+              headers: {
+                Authorization: 'Bearer ' + accessToken,
+                ...headersValue
+              }
+            }).then((r) => r.data),
+        }}
+      >
+        <ChakraProvider>
+          <Component {...pageProps} />
+          {/* <Footer /> */}
+        </ChakraProvider>
+      </SWRConfig>
     </>
   )
 }

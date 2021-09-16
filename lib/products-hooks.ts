@@ -1,8 +1,5 @@
 import useSWR from 'swr'
-
-function fetcher(url: string) {
-  return window.fetch(url).then((res) => res.json())
-}
+import { fetcher } from './utilities'
 
 export function useProducts() {
   const { data, error } = useSWR(`/api/get-products`, fetcher)
