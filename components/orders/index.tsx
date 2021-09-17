@@ -11,7 +11,7 @@ function Orders({ orders }) {
             spacing={2}
             key={order.id}
           >
-            {/* <Order id={order.id} title={order.title} price={order.content} /> */}
+            <Order order={order} />
           </VStack>
         ))}
       </div>
