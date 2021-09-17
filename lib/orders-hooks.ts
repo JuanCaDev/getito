@@ -9,6 +9,16 @@ export function useOrders({ options }) {
   );
 
   return {
+    orders: data.results,
+    isLoading: !error && !data,
+    isError: error,
+  }
+}
+
+export function useOrder({ id, options }) {
+  const { data, error } = useSWR(`${resource}/${id}`, options);
+
+  return {
     orders: data,
     isLoading: !error && !data,
     isError: error,

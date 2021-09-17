@@ -10,7 +10,7 @@ export default function TokenPage({ responseToken, responseUser }) {
   // const router = useRouter()
   useEffect(() => {
     console.log(responseToken, responseUser)
-    Cookies.set('access_token', responseToken.access_token)
+    Cookies.set('access_token', responseToken.access_token, { expires: 0.25 }) // 6 hours
     // Cookies.set('refresh_token', responseToken.refresh_token)
     // console.log(
     //   Cookies.set('refresh_token', responseToken),
