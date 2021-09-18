@@ -30,6 +30,11 @@ export default function IndexPage() {
   return (
     <>
       <h1>Restart token</h1>
+      <Link href="/login">
+        <a>
+          <Button>Ir a login</Button>
+        </a>
+      </Link>
       <Link href="/orders">
         <a>
           <Button>Ir a ordenes</Button>

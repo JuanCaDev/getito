@@ -2,7 +2,7 @@
   "name": "getito",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next",
+    "dev": "next dev -p 3010",
     "build": "next build",
     "start": "next start",
     "migrate": "node scripts/migrate-db.js"

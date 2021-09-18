@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useOrders } from '@/lib/orders-hooks'
 
 import Orders from '@/components/orders'
+import Container from '@/components/container'
 
 export default function OrdersPage() {
   const { orders, isLoading, isError} = useOrders({
@@ -21,10 +22,10 @@ export default function OrdersPage() {
   }
   
   return (
-    <div>
-      <h1>Ordenes</h1>
+    <Container>
+      <h1 className="text-xl font-semibold">Ordenes</h1>
       <Orders orders={orders.results} />
-    </div>
+    </Container>
   )
 }
 
