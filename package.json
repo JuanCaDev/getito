@@ -16,6 +16,7 @@
     "bad-words": "^3.0.4",
     "clsx": "^1.1.1",
     "dotenv": "^8.2.0",
+    "formik": "^2.2.9",
     "framer-motion": "^3.10.0",
     "js-cookie": "^2.2.1",
     "next": "latest",
@@ -23,7 +24,8 @@
     "react-dom": "^17.0.1",
     "react-loading-skeleton": "^2.1.1",
     "serverless-mysql": "^1.5.4",
-    "swr": "^0.3.9"
+    "swr": "^0.3.9",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/node": "^14.14.6",

@@ -9,7 +9,7 @@ import Button from '@/components/button'
 
 export default function OrderDetails({ initialData }) {
   const router = useRouter()
-  const { id, packId, userId } = router.query
+  const { id } = router.query
 
   const { order, isLoading, isError} = useOrder({
     id: id,
@@ -19,27 +19,10 @@ export default function OrderDetails({ initialData }) {
   })
 
   console.log(order, isLoading, isError)
-  
-  // const { messagesPack, isLoading: isLoadingMess, isError: isErrorMess } = useMessagesPack({
-  //   packId: packId,
-  //   userId: userId,
-  //   options: {
-  //     initialData: messagesPackServer
-  //   }
-  // })
-  
-  // console.log("Messages Pack", messagesPack, isLoadingMess, isErrorMess)
 
   if (isLoading) {
     return <p>Cargando...</p>
   }
-
-  // `
-  //       Hola, ${order.byer.first_name}. ¡Gracias por tu compra!
-  //       Estamos preparando tu pedido para su despacho.
-  //       Si estás interesado en algún otro producto o tienes una duda
-  //       puedes escribirnos al 3182668191.
-  //     `
 
   const handleSendMessage = async () => {
     const { data } = await MessageService.send({
