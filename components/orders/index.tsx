@@ -6,14 +6,14 @@ function Orders({ orders }) {
   if (orders) {
     return (
       <div>
-        {orders.map((order) => (
-          <VStack
-            spacing={2}
-            key={order.id}
-          >
-            <Order order={order} />
-          </VStack>
-        ))}
+        <VStack
+          spacing={2}
+          align="stretch"
+        >
+          {orders.map((order) => (
+            <Order order={order} key={order.id} />
+          ))}
+        </VStack>
       </div>
     )
   } else {

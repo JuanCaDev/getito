@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 
 const resource = '/orders'
 
-export function useOrders({ options }) {
+export function useOrders({ options = {} }) {
   const token = Cookies.get('access_token') || ""
   console.log(token)
   const { data, error } = useSWR(
@@ -20,11 +20,11 @@ export function useOrders({ options }) {
   }
 }
 
-export function useOrder({ id, options }) {
+export function useOrder({ id, options = {} }) {
   const { data, error } = useSWR(`${resource}/${id}`, options);
 
   return {
-    orders: data,
+    order: data,
     isLoading: !error && !data,
     isError: error,
   }

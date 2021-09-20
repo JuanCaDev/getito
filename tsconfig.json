@@ -19,6 +19,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/login/index.jsx", "pages/home/index.jsx", "pages/index.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/login/index.jsx", "pages/home/index.jsx", "pages/index.jsx", "hooks/useForm.jsx"],
   "exclude": ["node_modules"]
 }
