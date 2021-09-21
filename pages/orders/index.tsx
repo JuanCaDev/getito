@@ -1,9 +1,12 @@
 import { useEffect } from 'react'
+import Link from 'next/link'
 
 import { useOrders } from '@/lib/orders-hooks'
 
 import Orders from '@/components/orders'
 import Container from '@/components/container'
+import Button from '@/components/button'
+import { Text } from '@chakra-ui/layout'
 
 export default function OrdersPage() {
   const { orders, isLoading, isError} = useOrders({
@@ -20,10 +23,24 @@ export default function OrdersPage() {
   if (isLoading) {
     return <p>Cargando...</p>
   }
+
+  if (isError) {
+    return (
+      <Container>
+        <h1 className="text-xl font-semibold">Ordenes</h1>
+        <p>No se inició sesión correctamente...</p>
+        <Link href="/login">
+          <a>
+            <Button>Ir a login</Button>
+          </a>
+        </Link>
+      </Container>
+    )
+  }
   
   return (
     <Container>
-      <h1 className="text-xl font-semibold">Ordenes</h1>
+      <Text fontSize="xl" as="h1" fontWeight="semibold">Órdenes</Text>
       <Orders orders={orders.results} />
     </Container>
   )

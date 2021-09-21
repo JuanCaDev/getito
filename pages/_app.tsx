@@ -1,6 +1,7 @@
 import { SWRConfig } from 'swr'
 // import Footer from '@/components/footer'
 import { ChakraProvider } from "@chakra-ui/react"
+import { Box } from '@chakra-ui/layout'
 import Axios from 'axios'
 import Cookies from 'js-cookie'
 
@@ -18,14 +19,17 @@ function MyApp({ Component, pageProps }) {
           fetcher: (url, headersValue) =>
             Axios(url, {
               headers: {
-                Authorization: 'Bearer ' + accessToken,
+                "Authorization": 'Bearer ' + accessToken,
+                // "Access-Control-Allow-Origin": "*",
                 ...headersValue
               }
             }).then((r) => r.data),
         }}
       >
         <ChakraProvider>
-          <Component {...pageProps} />
+          <Box bg="gray.100">
+            <Component {...pageProps} />
+          </Box>
           {/* <Footer /> */}
         </ChakraProvider>
       </SWRConfig>

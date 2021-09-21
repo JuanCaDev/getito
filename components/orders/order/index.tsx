@@ -86,10 +86,11 @@ function Order({ order }) {
   return (
     <>
       {order.order_items.map((order_item) => (
-        <Box border="2px" borderColor="gray.500" borderRadius="md" px="3" py="2" key={order.id}>
+        <Box bg="white" boxShadow="sm" borderRadius="md" px="3" py="2" key={order.id}>
           <Link href={`/orders/${order.id}`}>
             <a>
-              <Text>{order_item.item.title}</Text>
+              <Text lineHeight="initial" mb="2">{order_item.item.title}</Text>
+              <Text color="gray.500" fontSize="sm">SKU {order_item.item.seller_sku}</Text>
               <Text color="gray.500" fontSize="sm">{convertToCOP(order_item.full_unit_price)} x {order_item.quantity}</Text>
             </a>
           </Link>

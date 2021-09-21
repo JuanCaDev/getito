@@ -24,6 +24,14 @@ export default function OrderDetails({ initialData }) {
     return <p>Cargando...</p>
   }
 
+  const { messagesPack, isLoading: isLoadingMP, isError: isErrorMP} = useMessagesPack({
+    packId: order.pack_id || order.id,
+    userId: order.seller.id,
+  })
+
+  console.log(messagesPack, isLoadingMP, isErrorMP)
+
+
   const handleSendMessage = async () => {
     const { data } = await MessageService.send({
       packId: order.pack_id || order.id,
