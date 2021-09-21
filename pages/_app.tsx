@@ -20,14 +20,27 @@ function MyApp({ Component, pageProps }) {
             Axios(url, {
               headers: {
                 "Authorization": 'Bearer ' + accessToken,
+                // "Content-Type": "application/json;charset=utf-8",
+                // "Transfer-Encoding": "chunked",
+                // "Connection": "keep-alive",
+                // "vary": "accept-encoding",
+                // "content-encoding": "gzip",
+                // "X-Content-Type-Options": "nosniff",
+                // "Access-Control-Allow-Headers" : "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
                 // "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Methods": "OPTIONS, POST, GET, DELETE",
+                // "Access-Control-Max-Age": "86400",
+                // "Content-Type": "text/event-stream",
+                // "Cache-Control": "no-cache",
+                // "Connection": "keep-alive",
+                // "X-Accel-Buffering": "no",
                 ...headersValue
               }
             }).then((r) => r.data),
         }}
       >
         <ChakraProvider>
-          <Box bg="gray.100">
+          <Box bg="gray.100" minHeight="100vh">
             <Component {...pageProps} />
           </Box>
           {/* <Footer /> */}

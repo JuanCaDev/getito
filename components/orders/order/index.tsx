@@ -89,14 +89,21 @@ function Order({ order }) {
         <Box bg="white" boxShadow="sm" borderRadius="md" px="3" py="2" key={order.id}>
           <Link href={`/orders/${order.id}`}>
             <a>
-              <Text lineHeight="initial" mb="2">{order_item.item.title}</Text>
+              <Text lineHeight="initial" mb="1">{order_item.item.title}</Text>
               <Text color="gray.500" fontSize="sm">SKU {order_item.item.seller_sku}</Text>
               <Text color="gray.500" fontSize="sm">{convertToCOP(order_item.full_unit_price)} x {order_item.quantity}</Text>
             </a>
           </Link>
-          <Button size="sm" variant="link" colorScheme="telegram" onClick={onOpen}>
-            Enviar mensaje
-          </Button>
+          <Box display="flex" justifyContent="space-between">
+            <Button size="sm" variant="link" colorScheme="telegram" onClick={onOpen}>
+              Enviar mensaje
+            </Button>
+            {order.status === "cancelled" && (
+              <Box bg="gray.300" rounded="full" px="2">
+                <Text color="gray.600" fontSize="xs">Cancelada</Text>
+              </Box>
+            )}
+          </Box>
         </Box>
       ))}
 

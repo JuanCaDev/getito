@@ -3,9 +3,9 @@ import Cookies from 'js-cookie'
 import resourceUrl from 'data/resourceUrl'
 
 export default {
-  getMessagesPack({ packId, userId, token }) {
+  getMessagesPack({ packId, userId, token = undefined }) {
     const TOKEN = token || Cookies.get('access_token') || ""
-    return Service.get(`${resourceUrl.messagePack}/packs/${packId}/sellers/${userId}`, {
+    return Service.get(`${resourceUrl.messagePack}/packs/${packId}/sellers/${userId}?mark_as_read=false`, {
       headers: {
         Authorization: 'Bearer ' + TOKEN
       }

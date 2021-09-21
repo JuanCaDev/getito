@@ -6,6 +6,8 @@ import { useOrder } from '@/lib/orders-hooks'
 import { useRouter } from 'next/router'
 import { useMessagesPack } from '@/lib/messages-hooks'
 import Button from '@/components/button'
+import { Box, Text } from '@chakra-ui/layout'
+import { convertToCOP } from '@/lib/utils'
 
 export default function OrderDetails({ initialData }) {
   const router = useRouter()
@@ -24,13 +26,21 @@ export default function OrderDetails({ initialData }) {
     return <p>Cargando...</p>
   }
 
-  const { messagesPack, isLoading: isLoadingMP, isError: isErrorMP} = useMessagesPack({
+  // const { messagesPack, isLoading: isLoadingMP, isError: isErrorMP} = useMessagesPack({
+  //   packId: order.pack_id || order.id,
+  //   userId: order.seller.id,
+  // })
+
+  // console.log(messagesPack, isLoadingMP, isErrorMP)
+
+  MessageService.getMessagesPack({
     packId: order.pack_id || order.id,
-    userId: order.seller.id,
-  })
-
-  console.log(messagesPack, isLoadingMP, isErrorMP)
-
+    userId: order.seller.id
+  }).then((res) => (
+    console.log(res)
+  )).catch((err) => (
+    console.log(err)
+  ))
 
   const handleSendMessage = async () => {
     const { data } = await MessageService.send({
@@ -48,7 +58,13 @@ export default function OrderDetails({ initialData }) {
   return (
     <>
       <h1 className="text-xl font-semibold">Orden #{id}</h1>
-      <Button onClick={handleSendMessage}>Enviar mensaje</Button>
+      {order.order_items.map((order_item) => <>
+        <Box bg="white" boxShadow="sm" borderRadius="md" px="3" py="2" key={order.id}> 
+          <Text lineHeight="initial" mb="1">{order_item.item.title}</Text>
+          <Text color="gray.500" fontSize="sm">SKU {order_item.item.seller_sku}</Text>
+          <Text color="gray.500" fontSize="sm">{convertToCOP(order_item.full_unit_price)} x {order_item.quantity}</Text>
+        </Box>
+      </>)}
     </>
   )
 }

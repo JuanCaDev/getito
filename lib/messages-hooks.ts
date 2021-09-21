@@ -7,7 +7,7 @@ export function useMessagesPack({ packId, userId, options = {} }) {
   const token = Cookies.get('access_token') || ""
   console.log(token)
   const { data, error } = useSWR(
-    `${resourceUrl.messagePack}/packs/${packId}/sellers/${userId}`,
+    `${resourceUrl.messagePack}/packs/${packId}/sellers/${userId}?mark_as_read=false`,
     options
   );
 
