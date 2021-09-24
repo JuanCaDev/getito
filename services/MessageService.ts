@@ -14,7 +14,7 @@ export default {
 
   send({ packId, sellerId, buyerId, text, attachments = "" }) {
     const token = Cookies.get('access_token') || ""
-    return Service.post(`${resourceUrl.messagePack}/packs/${packId}/sellers/${sellerId}`, {
+    return Service.post(`${resourceUrl.messagePack}/packs/${packId}/sellers/${sellerId}?application_id=${process.env.NEXT_PUBLIC_ML_CLIENT_ID}`, {
       "from": {
         "user_id": sellerId
       },
