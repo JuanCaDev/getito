@@ -26,10 +26,13 @@ export default {
     }, {
       headers: {
         "Authorization": 'Bearer ' + token,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "PUT, GET, POST, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin",
-        "Content-Type": "application/json;charset=UTF-8",
+        "cache-control": "no-cache",
+        'content-type': 'application/json',
+        'postman-token': '167b4f47-cb87-2b27-2a3c-cfb012df9314',
+        'x-client-id': '8794217632667367'
+        // "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Methods": "PUT, GET, POST, DELETE, OPTIONS",
+        // "Access-Control-Allow-Headers": "POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin",
       }
     })
   }
