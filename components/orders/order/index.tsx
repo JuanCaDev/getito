@@ -29,7 +29,7 @@ const messageSchema = Yup.object().shape({
 });
 
 function Order({ order }) {
-  const { product, isLoading, isError} = useProduct(order.order_items[0].item.id)
+  const { product, isLoading: isLoadingProduct, isError} = useProduct(order.order_items[0].item.id)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { formValues, handleInputChange, handleEditValues } = useForm({
@@ -97,7 +97,7 @@ function Order({ order }) {
               <Text color="gray.500" fontSize="sm">
                 {convertToCOP(order_item.full_unit_price)} x{" "}
                 <Text as="span" color={order_item.quantity > 1 && "black"}>{order_item.quantity}</Text>
-                {product.available_quantity < 4 && (
+                {!isLoadingProduct && product.available_quantity < 4 && (
                   <Text as="span" color={product.available_quantity > 1 ? "orange.400" : "red.400"}>
                     {` ¡Quedan ${product.available_quantity} ${product.available_quantity === 1 ? "unidad" : "unidades"}!` }
                   </Text>
