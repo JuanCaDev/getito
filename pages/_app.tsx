@@ -6,6 +6,7 @@ import Axios from 'axios'
 import Cookies from 'js-cookie'
 
 import '../styles/index.css'
+import Nav from '@/components/nav'
 
 Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -27,8 +28,8 @@ function MyApp({ Component, pageProps }) {
                 // "content-encoding": "gzip",
                 // "X-Content-Type-Options": "nosniff",
                 // "Access-Control-Allow-Headers" : "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
-                // "Access-Control-Allow-Origin": "*",
-                // "Access-Control-Allow-Methods": "OPTIONS, POST, GET, DELETE",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "OPTIONS, POST, GET, DELETE",
                 // "Access-Control-Max-Age": "86400",
                 // "Content-Type": "text/event-stream",
                 // "Cache-Control": "no-cache",
@@ -41,6 +42,7 @@ function MyApp({ Component, pageProps }) {
       >
         <ChakraProvider>
           <Box bg="gray.100" minHeight="100vh">
+            <Nav />
             <Component {...pageProps} />
           </Box>
           {/* <Footer /> */}

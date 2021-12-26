@@ -1,8 +1,9 @@
 import useSWR from 'swr'
-import { fetcher } from './utilities'
 
-export function useProducts() {
-  const { data, error } = useSWR(`/api/get-products`, fetcher)
+export function useProducts({ options = {} }) {
+  const { data, error } = useSWR(`/sites/MCO/search?seller_id=${process.env.NEXT_PUBLIC_ML_SELLER_ID}`, options)
+
+  console.log(data, error)
 
   return {
     products: data,
@@ -11,6 +12,14 @@ export function useProducts() {
   }
 }
 
-// export function useProduct(id: string) {
-//   return useSWR(`/api/get-entry?id=${id}`, fetcher)
-// }
+export function useProduct(id: string) {
+  const { data, error } = useSWR(`/items/${id}`)
+
+  console.log(data, error)
+
+  return {
+    product: data,
+    isLoading: !error && !data,
+    isError: error,
+  }
+}

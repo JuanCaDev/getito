@@ -1,4 +1,4 @@
-import Link from "next/link"
+import NextLink from "next/link"
 
 import { Box, Text } from "@chakra-ui/layout"
 import {
@@ -11,13 +11,14 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react"
 import { useDisclosure } from "@chakra-ui/hooks"
-import { Button, Textarea } from "@chakra-ui/react"
+import { Button, Textarea, Link } from "@chakra-ui/react"
 
 import * as Yup from 'yup';
 import { useForm } from "hooks/useForm"
 import { useState } from "react"
 import { convertToCOP } from "@/lib/utils"
 import MessageService from "services/MessageService"
+import { useProduct } from "@/lib/products-hooks"
 
 
 const messageSchema = Yup.object().shape({
@@ -28,6 +29,8 @@ const messageSchema = Yup.object().shape({
 });
 
 function Order({ order }) {
+  const { product, isLoading, isError} = useProduct(order.order_items[0].item.id)
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { formValues, handleInputChange, handleEditValues } = useForm({
     msg: ''
@@ -87,14 +90,22 @@ function Order({ order }) {
     <>
       {order.order_items.map((order_item) => (
         <Box bg="white" boxShadow="sm" borderRadius="md" px="3" py="2" key={order.id}>
-          <Link href={`/orders/${order.id}`}>
+          <NextLink href={`/orders/${order.id}`}>
             <a>
               <Text lineHeight="initial" mb="1">{order_item.item.title}</Text>
               <Text color="gray.500" fontSize="sm">SKU {order_item.item.seller_sku}</Text>
-              <Text color="gray.500" fontSize="sm">{convertToCOP(order_item.full_unit_price)} x {order_item.quantity}</Text>
+              <Text color="gray.500" fontSize="sm">
+                {convertToCOP(order_item.full_unit_price)} x{" "}
+                <Text as="span" color={order_item.quantity > 1 && "black"}>{order_item.quantity}</Text>
+                {product.available_quantity < 4 && (
+                  <Text as="span" color={product.available_quantity > 1 ? "orange.400" : "red.400"}>
+                    {` ¡Quedan ${product.available_quantity} ${product.available_quantity === 1 ? "unidad" : "unidades"}!` }
+                  </Text>
+                )}
+              </Text>
             </a>
-          </Link>
-          <Box display="flex" justifyContent="space-between">
+          </NextLink>
+          <Box display="flex" justifyContent="space-between" mt="2">
             <Button size="sm" variant="link" colorScheme="telegram" onClick={onOpen}>
               Enviar mensaje
             </Button>
@@ -103,6 +114,9 @@ function Order({ order }) {
                 <Text color="gray.600" fontSize="xs">Cancelada</Text>
               </Box>
             )}
+            <Link colorScheme="telegram" fontSize="sm" fontWeight="semibold" color="telegram.500" href={`https://www.amazon.com/dp/${order_item.item.seller_sku}`} isExternal>
+              Ver en Amazon
+            </Link>
           </Box>
         </Box>
       ))}
