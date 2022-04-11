@@ -7,6 +7,9 @@ import Cookies from 'js-cookie'
 
 import '../styles/index.css'
 import Nav from '@/components/nav'
+import { pdfjs } from 'react-pdf';
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 

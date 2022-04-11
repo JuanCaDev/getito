@@ -1,0 +1,2 @@
+### Obtener productos
+GET https://api.mercadolibre.com/sites/MCO/search?seller_id=166877629

@@ -32,6 +32,8 @@ export default {
         'redirect_uri': process.env.NEXT_PUBLIC_ML_REDIRECT_URI,
       })
     });
+
+    console.log(response)
     return await response.json()
   }
 }

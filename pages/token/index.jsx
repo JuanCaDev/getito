@@ -1,16 +1,16 @@
-import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
-import { useEffect } from 'react'
-import TokenService from 'services/TokenService'
-import UserService from 'services/UserService'
-import { Button } from '@chakra-ui/react'
-import Link from 'next/link'
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import TokenService from "services/TokenService";
+import UserService from "services/UserService";
+import { Button } from "@chakra-ui/react";
+import Link from "next/link";
 
 export default function TokenPage({ responseToken, responseUser }) {
   // const router = useRouter()
   useEffect(() => {
-    console.log(responseToken, responseUser)
-    Cookies.set('access_token', responseToken.access_token, { expires: 0.25 }) // 6 hours
+    console.log(responseToken, responseUser);
+    Cookies.set("access_token", responseToken.access_token, { expires: 0.25 }); // 6 hours
     // Cookies.set('refresh_token', responseToken.refresh_token)
     // console.log(
     //   Cookies.set('refresh_token', responseToken),
@@ -28,25 +28,25 @@ export default function TokenPage({ responseToken, responseUser }) {
     //     .then(data => console.log(data))
     //     .catch(error => console.error(error))
     // }
-  }, [])
+  }, []);
 
   return (
     <>
-      <h1>¡Haz iniciado correctamente!</h1>
+      <h1>¡Haz iniciado correctamente! Token: {responseToken.access_token}</h1>
       <Link href="/">
         <a>
           <Button>Ir a publicaciones</Button>
         </a>
       </Link>
     </>
-  )
+  );
 }
 
 export const getServerSideProps = async (ctx) => {
   const { code } = ctx.query;
 
-  const dataToken = await TokenService.getAccessToken(code)
-  const dataUser = await UserService.getUser(dataToken.access_token)
+  const dataToken = await TokenService.getAccessToken(code);
+  const dataUser = await UserService.getUser(dataToken.access_token);
 
   // const user = {
   //   id: dataUser.id,
@@ -58,13 +58,13 @@ export const getServerSideProps = async (ctx) => {
   //   accessToken: dataToken.access_token,
   //   refreshToken: dataToken.refresh_token
   // }
-  
+
   // await UserService.saveUser(user)
 
   return {
     props: {
       responseToken: dataToken,
-      responseUser: dataUser
-    }
-  }
-}
+      responseUser: dataUser,
+    },
+  };
+};
