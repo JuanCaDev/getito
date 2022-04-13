@@ -1,20 +1,19 @@
 import useSWR from 'swr'
-import Cookies from 'js-cookie'
 
 const resource = '/orders'
 
-export function useOrders({ options = {} }) {
+export function useOrders({ limit = 10, offset = 0, options = {} }) {
+  console.log("offset", offset)
   const { data, error } = useSWR(
-    `${resource}/search?seller=${process.env.NEXT_PUBLIC_ML_SELLER_ID}&limit=20&sort=date_desc`,
+    `${resource}?limit=${limit}&offset=${offset}`,
     options
   );
-
-  console.log(data, error)
+  console.log("paging", data.paging)
 
   return {
     orders: data,
     isLoading: !error && !data,
-    isError: error,
+    isError: error
   }
 }
 

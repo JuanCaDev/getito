@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-const baseURL = 'https://api.mercadolibre.com';
+const baseURL = process.env.NEXT_PUBLIC_ML_API_URL;
 
 export default Axios.create({
   baseURL,

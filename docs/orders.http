@@ -1,7 +1,22 @@
+@resource = orders
+
+// My Api
 ### Obtener órdenes
-GET https://api.mercadolibre.com/messages/packs/2000002751935719/sellers/166877629
-Authorization: Bearer APP_USR-8756892310430960-041004-567c330313e0f421fa46e2380411c3f6-166877629
+GET {{apiUrl}}/{{resource}}
+    &limit=3
+    &offset=3
+Authorization: {{token}}
+
+// ML Api
+
+### Obtener órdenes
+GET {{apiUrlMl}}/{{resource}}/search
+    ?seller=166877629
+    &sort=date_desc
+    &limit=3
+    &offset=3
+Authorization: {{token}}
 
 ### Obtener orden
-GET https://api.mercadolibre.com/orders/5397976177
-Authorization: Bearer APP_USR-8756892310430960-041004-567c330313e0f421fa46e2380411c3f6-166877629
+GET {{apiUrlMl}}/{{resource}}/5397749808
+Authorization: {{token}}

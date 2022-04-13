@@ -15,8 +15,6 @@ export function useProducts({ options = {} }) {
 export function useProduct(id: string) {
   const { data, error } = useSWR(`/items/${id}`)
 
-  console.log(data, error)
-
   return {
     product: data,
     isLoading: !error && !data,

@@ -7,14 +7,17 @@ import {
   PDFViewer,
 } from "@react-pdf/renderer";
 
-import Table from "@/components/pdf/table/index.js";
+import TInfoTop from "@/components/pdf/tinfotop.js";
+import THead from "@/components/pdf/thead.js";
+import TBody from "@/components/pdf/tbody.js";
+import TOrderSummary from "@/components/pdf/tordersummary.js";
 
 // Create styles
 const styles = StyleSheet.create({
   container: {
     padding: "40px",
   },
-  borderTop: {
+  borderBlue: {
     width: "100%",
     height: "10px",
     backgroundColor: "#1EAAF1",
@@ -23,7 +26,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100vh",
   },
-  info: {
+  infoTop: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -53,78 +56,42 @@ const styles = StyleSheet.create({
   textStore: {
     marginBottom: 10,
   },
+  textGray: {
+    color: "#2E2E2E",
+  },
 });
 
 // Create Document Component
 function MyDocument({ order }) {
   return (
-    <>
-      Holaaaaaaaaaaaa
-      <PDFViewer style={styles.viewer}>
-        <Document>
-          <Page size="A4" style={styles.page}>
-            <View style={styles.borderTop}></View>
-            <View style={styles.container}>
-              <View style={styles.info}>
-                <View style={styles.section}>
-                  <Text
-                    style={[styles.textStore, styles.textL, styles.textBold]}
-                  >
-                    Getito.co - Tienda Online
-                  </Text>
-                  <View style={styles.textSm}>
-                    <Text>Manzana G, Casa 17, Urbanización Isamar</Text>
-                    <Text>Aguachica, Cesar</Text>
-                    <Text>{order.seller.phone.number}</Text>
-                    <Text>getitoco@gmail.com</Text>
-                  </View>
-                </View>
+    <PDFViewer style={styles.viewer}>
+      <Document>
+        <Page size="A4" style={styles.page}>
+          <View style={styles.borderBlue}></View>
+          <View style={styles.container}>
+            <TInfoTop
+              phoneNumber={order.seller.phone.number}
+              orderId={order.id}
+              date={order.date_closed}
+            />
 
-                <View
-                  style={[styles.section, styles.textMd, styles.sectionRight]}
-                >
-                  <Text style={styles.textRight}>VENTA #{order.id}</Text>
-                  <Text style={{ textAlign: "center" }}>Fecha</Text>
-                  <Text>{order.date_closed}</Text>
-                </View>
-              </View>
-
-              <View style={{}}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    fontSize: "14px",
-                    marginTop: "40px",
-                  }}
-                >
-                  <Text style={{ width: "50%" }}>Artículo</Text>
-                  <Text style={{ width: "10%" }}>Precio</Text>
-                  <Text style={{ width: "15%" }}>Cantidad</Text>
-                  <Text style={{ width: "15%" }}>Total</Text>
-                </View>
-
-                {order.order_items.map((order_item) => (
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      fontSize: "12px",
-                      marginTop: "40px",
-                    }}
-                  >
-                    <Text style={{ width: "50%" }}>{order_item.item.title}</Text>
-                    <Text style={{ width: "10%" }}>{order_item.unit_price}</Text>
-                    <Text style={{ width: "15%" }}>{order_item.quantity}</Text>
-                    <Text style={{ width: "15%" }}>{order_item.unit_price * order_item.quantity}</Text>
-                  </View>
-                ))}
-              </View>
-
-              <Table></Table>
+            <View style={{}}>
+              <THead />
+              <TBody orderItems={order.order_items} />
+              <TOrderSummary
+                subtotal={order.payments[0].transaction_amount}
+                coupon={order.payments[0].coupon_amount}
+                shipping={order.payments[0].shipping_cost}
+                total={order.payments[0].total_paid_amount}
+              />
             </View>
-          </Page>
-        </Document>
-      </PDFViewer>
-    </>
+          </View>
+          <View
+            style={[styles.borderBlue, { position: "absolute", bottom: "0px" }]}
+          ></View>
+        </Page>
+      </Document>
+    </PDFViewer>
   );
 }
 

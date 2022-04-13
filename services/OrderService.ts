@@ -4,13 +4,15 @@ import Cookies from 'js-cookie'
 const resource = '/orders'
 
 export default {
-  getOrders() {
-    const token = Cookies.get('access_token') || ""
-    return Service.get(`${resource}/search?seller=${process.env.NEXT_PUBLIC_ML_SELLER_ID}&limit=10&sort=date_desc`, {
-      headers: {  
-        'Authorization': `Bearer ${token}`
+  getOrders({ token = "", limit = 10, offset = 0 }) {
+    const TOKEN = Cookies.get('access_token') || token
+    return Service.get(`${resource}/search?seller=${process.env.NEXT_PUBLIC_ML_SELLER_ID}&sort=date_desc&limit=${limit}&offset=${offset}`, 
+      {
+        headers: {  
+          'Authorization': `Bearer ${TOKEN}`
+        }
       }
-    })
+      )
   },
 
   getOrder({ id, token }) {

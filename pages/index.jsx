@@ -29,7 +29,7 @@ export default function IndexPage() {
   // });
 
   const { order, isLoading, isError } = useOrder({
-    id: 5397976177,
+    id: 5402863581,
     options: {
       revalidateIfStale: false,
       revalidateOnFocus: false,
@@ -85,7 +85,6 @@ export default function IndexPage() {
   return (
     <>
       <h1>Restart token</h1>
-      <h2>Restart token</h2>
       <Link href="/login">
         <a>
           <Button>Ir a loginss</Button>
@@ -96,7 +95,6 @@ export default function IndexPage() {
           <Button>Ir a ordenes</Button>
         </a>
       </Link>
-      <h3>Restart token</h3>
       {!isLoading && !isError && <DynamicComponent order={order} />}
       {/* <PDFViewer>
         <MyDocument />

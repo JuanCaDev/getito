@@ -30,9 +30,17 @@ export default function TokenPage({ responseToken, responseUser }) {
     // }
   }, []);
 
+  const copyToken = () => {
+    navigator.clipboard.writeText(responseToken.access_token);
+  }
+
+
   return (
     <>
-      <h1>¡Haz iniciado correctamente! Token: {responseToken.access_token}</h1>
+      <h1>
+        ¡Haz iniciado correctamente!{" "}
+        <span onClick={copyToken} style={{ cursor: "pointer" }}>Token: {responseToken.access_token}</span>
+      </h1>
       <Link href="/">
         <a>
           <Button>Ir a publicaciones</Button>
