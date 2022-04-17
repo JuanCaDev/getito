@@ -8,7 +8,6 @@ export function useOrders({ limit = 10, offset = 0, options = {} }) {
     `${resource}?limit=${limit}&offset=${offset}`,
     options
   );
-  console.log("paging", data.paging)
 
   return {
     orders: data,

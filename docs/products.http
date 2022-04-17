@@ -1,5 +1,6 @@
 ### Obtener productos
 GET https://api.mercadolibre.com/sites/MCO/search?seller_id=166877629
+Authorization: {{token}}
 
 ### Obtener producto
 GET https://api.mercadolibre.com/items/MCO807460813

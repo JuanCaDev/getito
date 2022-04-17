@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import { useOrders } from '@/lib/orders-hooks'
@@ -48,12 +47,10 @@ export default function OrdersPage({ initialData }) {
   }
 
   const handleChangePagination = (page) => {
-    let query = queryString.parseUrl(router.asPath).query;
-    query.page = page;
-
+    router.query.page = page
     router.push({
       pathname: router.pathname,
-      query: query,
+      query: router.query,
     });
   }
   
