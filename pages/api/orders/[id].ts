@@ -1,5 +1,4 @@
 import OrderService from '@/services/OrderService'
-import { Console } from 'console'
 import { NextApiHandler } from 'next'
 
 import { parseCookies } from 'nookies'
@@ -11,7 +10,7 @@ const handler: NextApiHandler = async (req, res) => {
       token: cookies.access_token,
       id: req.query.id
     })
-    
+
     return res.json(data)
   } catch (e) {
     console.log(e.message)

@@ -7,10 +7,10 @@ import {
   PDFViewer,
 } from "@react-pdf/renderer";
 
-import TInfoTop from "@/components/pdf/tinfotop.js";
-import THead from "@/components/pdf/thead.js";
-import TBody from "@/components/pdf/tbody.js";
-import TOrderSummary from "@/components/pdf/tordersummary.js";
+import TInfoTop from "@/components/pdf/TInfoTop.js";
+import THead from "@/components/pdf/THead.js";
+import TBody from "@/components/pdf/TBody.js";
+import TOrderSummary from "@/components/pdf/TOrderSummary.js";
 
 // Create styles
 const styles = StyleSheet.create({

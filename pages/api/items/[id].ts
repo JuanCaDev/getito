@@ -1,4 +1,3 @@
-import { Console } from 'console'
 import { NextApiHandler } from 'next'
 
 import { parseCookies } from 'nookies'
@@ -12,8 +11,6 @@ const handler: NextApiHandler = async (req, res) => {
       token: cookies.access_token,
       id: req.query.id
     })
-
-    console.log(data)
 
     return res.json(data)
   } catch (e) {
