@@ -15,16 +15,15 @@ import { Container } from "@nextui-org/react";
 import { Pagination } from '@nextui-org/react';
 import { useRouter } from 'next/router'
 
-export default function OrdersPage({ orders: initialData }) {
+export default function OrdersPage({ initialData }) {
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(
-    Number(router.query.page) || 1
-  );
 
-  console.log("currentPage", currentPage)
+  const currentPage = Number(router.query.page)
+  // 10 = limit
+  const offset = currentPage === 1 ? 0 : 10 * (currentPage - 1)
 
   const { orders, isLoading, isError } = useOrders({
-    offset: currentPage === 1 ? 0 : initialData.paging.limit * (currentPage - 1),
+    offset: offset,
     options: {
       initialData: initialData
     }
@@ -49,8 +48,6 @@ export default function OrdersPage({ orders: initialData }) {
   }
 
   const handleChangePagination = (page) => {
-    setCurrentPage(page)
-    
     let query = queryString.parseUrl(router.asPath).query;
     query.page = page;
 
@@ -81,22 +78,21 @@ export const getServerSideProps = async (ctx) => {
   const { page } = ctx.query
   const limit = 10
   try {
+    const offset = page === 1 ? 0 : (page - 1) * limit;
     const { data } = await OrderService.getOrders({
       token: access_token,
-      offset: page === 1 ? 0 : (page - 1) * limit,
+      offset: offset,
     })
     
     return {
       props: {
-        orders: data
+        initialData: data
       }
     }
   } catch (error) {
     console.error(error)
     return {
-      props: {
-        orders: ""
-      }
+      notFound: true
     }
   }
 }

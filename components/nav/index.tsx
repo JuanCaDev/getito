@@ -6,7 +6,7 @@ export default function Nav() {
     <Container className="py-4">
       <nav>
         <div className="flex items-center justify-between">
-          <Link href="/orders">
+          <Link href="/orders?page=1">
             Órdenes
           </Link>
           <Link href="/products">
