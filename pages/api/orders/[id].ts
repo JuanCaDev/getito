@@ -7,7 +7,7 @@ const handler: NextApiHandler = async (req, res) => {
   const cookies = parseCookies({ req })
   try {
     const { data } = await OrderService.getOrder({
-      token: cookies.access_token,
+      token: req.headers.authorization || cookies.access_token,
       id: req.query.id
     })
 

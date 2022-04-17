@@ -6,10 +6,11 @@ import OrderService from 'services/OrderService'
 
 const handler: NextApiHandler = async (req, res) => {
   const cookies = parseCookies({ req })
+
   try {
     const { data } = await OrderService.getOrders({
-      token: cookies.access_token,
-      limit: Number(req.query.limit) || 0,
+      token: req.headers.authorization || cookies.access_token,
+      limit: Number(req.query.limit) || 10,
       offset: Number(req.query.offset) || 0,
     })
 
