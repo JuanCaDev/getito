@@ -1,4 +1,3 @@
-import { Console } from 'console'
 import { NextApiHandler } from 'next'
 
 import { parseCookies } from 'nookies'
