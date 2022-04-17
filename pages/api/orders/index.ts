@@ -9,7 +9,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const { data } = await OrderService.getOrders({
-      token: req.headers.authorization || cookies.access_token,
+      token: cookies.access_token || req.headers.authorization,
       limit: Number(req.query.limit) || 10,
       offset: Number(req.query.offset) || 0,
     })
