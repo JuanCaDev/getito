@@ -8,7 +8,6 @@ import { Text } from '@chakra-ui/layout'
 import OrderService from 'services/OrderService'
 
 import { parseCookies } from 'nookies'
-import queryString from "query-string";
 
 import { Container } from "@nextui-org/react";
 import { Pagination } from '@nextui-org/react';
@@ -17,34 +16,33 @@ import { useRouter } from 'next/router'
 export default function OrdersPage({ initialData }) {
   const router = useRouter();
 
+  console.log(initialData)
+
   const currentPage = Number(router.query.page)
   // 10 = limit
   const offset = currentPage === 1 ? 0 : 10 * (currentPage - 1)
 
-  const { orders, isLoading, isError } = useOrders({
-    offset: offset,
-    options: {
-      initialData: initialData
-    }
-  })
+  const orders = initialData
 
-  if (isLoading) {
-    return <p>Cargando...</p>
-  }
+  // console.log(isLoading, isError)
 
-  if (isError) {
-    return (
-      <Container>
-        <h1 className="text-xl font-semibold">Ordenes</h1>
-        <p>No se inició sesión correctamente...</p>
-        <Link href="/login">
-          <a>
-            <Button>Ir a login</Button>
-          </a>
-        </Link>
-      </Container>
-    )
-  }
+  // if (isLoading) {
+  //   return <p>Cargando...</p>
+  // }
+
+  // if (isError) {
+  //   return (
+  //     <Container>
+  //       <h1 className="text-xl font-semibold">Ordenes</h1>
+  //       <p>No se inició sesión correctamente...</p>
+  //       <Link href="/login">
+  //         <a>
+  //           <Button>Ir a login</Button>
+  //         </a>
+  //       </Link>
+  //     </Container>
+  //   )
+  // }
 
   const handleChangePagination = (page) => {
     router.query.page = page
@@ -80,6 +78,8 @@ export const getServerSideProps = async (ctx) => {
       token: access_token,
       offset: offset,
     })
+
+    console.log(data)
     
     return {
       props: {

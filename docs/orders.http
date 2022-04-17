@@ -2,8 +2,11 @@
 
 // My Api
 ### Obtener órdenes
-GET http://localhost:3010/api/orders?page=1
-Authorization: APP_USR-8756892310430960-041704-5a371de153b318ee6b7858557421b77f-166877629
+GET {{apiUrl}}/{{resource}}
+    ?page=1
+    &limit=3
+    &offset=3
+Authorization: {{token}}
 
 // ML Api
 

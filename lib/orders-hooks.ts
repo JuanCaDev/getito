@@ -3,7 +3,6 @@ import useSWR from 'swr'
 const resource = '/orders'
 
 export function useOrders({ limit = 10, offset = 0, options = {} }) {
-  console.log("offset", offset)
   const { data, error } = useSWR(
     `${resource}?limit=${limit}&offset=${offset}`,
     options
