@@ -14,8 +14,6 @@ const handler: NextApiHandler = async (req, res) => {
       offset: Number(req.query.offset) || 0,
     })
 
-    console.log(data)
-
     return res.json(data)
   } catch (e) {
     console.log(e.message)

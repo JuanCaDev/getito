@@ -17,8 +17,6 @@ export default {
 
   getOrder({ id, token }) {
     const TOKEN = token || Cookies.get('access_token') || ""
-    console.log("id", id)
-    console.log("token", TOKEN)
     return Service.get(`${resource}/${id}`, {
       headers: {  
         'Authorization': `Bearer ${TOKEN}`
