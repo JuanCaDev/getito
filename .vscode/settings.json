@@ -3,7 +3,7 @@
     "$shared": {
         "version": "v1",
         "prodToken": "foo",
-        "nonProdToken": "APP_USR-8756892310430960-041704-5a371de153b318ee6b7858557421b77f-166877629"
+        "nonProdToken": "APP_USR-8756892310430960-041705-e7be551be753cfcf9492d451067bf1c4-166877629"
     },
     "local": {
         "version": "v2",
