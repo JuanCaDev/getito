@@ -19,6 +19,7 @@ import { useState } from "react"
 import { convertToCOP } from "@/lib/utils"
 import MessageService from "services/MessageService"
 import { useProduct } from "@/lib/products-hooks"
+import serviceMl from "serviceMl"
 
 
 const messageSchema = Yup.object().shape({
@@ -47,15 +48,7 @@ function Order({ order }) {
     let msg = '';
     switch (shorcut) {
       case shorcuts.gracias:
-        msg = `Hola, ${clientName}. ¡Gracias por tu compra! Estamos preparando tu pedido para ser despachado. Si tienes alguna duda o te gustaría adquirir otro producto, puedes contactarnos al 3182668191.`
-        break;
-
-      case shorcuts.airdots:
-        msg = `Hola, ${clientName}. ¡Gracias por tu compra! Queremos informarte que tenemos fundas protectoras para tus airdots. Si estás interesado/a puedes contactarnos al 3182668191.`
-        break;
-
-      case shorcuts.miband:
-        msg = `Hola, ${clientName}. ¡Gracias por tu compra! Queremos informarte que tenemos correas de colores, correas de acero y protectores adicionales para tu mi band. Si estás interesado/a puedes contactarnos al 3182668191.`
+        msg = `Hola. ¡Gracias por tu compra!\nEstamos preparando tu pedido para ser despachado.\nSi tienes alguna duda o te gustaría adquirir otro producto, puedes escribirnos al wap 3182668191 donde ofrecemos descuentos y más.\nSomos Getito`
         break;
     
       default:
@@ -73,12 +66,12 @@ function Order({ order }) {
     messageSchema.validate({ msg: formValues.msg })
       .then(async (values) => { 
         setErrorMsg("")
-        const { data } = await MessageService.send({
-          packId: order.pack_id || order.id,
-          sellerId: order.seller.id,
-          buyerId: order.buyer.id,
+        const packId = order.pack_id || order.id
+        const { data } = await serviceMl.post(`/messages`, {
+          packId: packId,
           text: values.msg
         })
+
         console.log(data)
       })
       .catch((err) => setErrorMsg(err.message))

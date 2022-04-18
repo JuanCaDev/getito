@@ -9,22 +9,9 @@ import Button from '@/components/button'
 import { Box, Text } from '@chakra-ui/layout'
 import { convertToCOP } from '@/lib/utils'
 
-export default function OrderDetails({ initialData }) {
+export default function OrderDetails({ order }) {
   const router = useRouter()
   const { id } = router.query
-
-  const { order, isLoading, isError} = useOrder({
-    id: id,
-    options: {
-      initialData
-    }
-  })
-
-  console.log(order, isLoading, isError)
-
-  if (isLoading) {
-    return <p>Cargando...</p>
-  }
 
   // const { messagesPack, isLoading: isLoadingMP, isError: isErrorMP} = useMessagesPack({
   //   packId: order.pack_id || order.id,
@@ -116,7 +103,7 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
-      initialData: order,
+      order: order,
       // messagesPackServer: messagesPack
     }
   }

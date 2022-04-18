@@ -1,9 +1,7 @@
 import { NextApiHandler } from 'next'
 
 import { parseCookies } from 'nookies'
-
-import OrderService from 'services/OrderService'
-import service from '../service'
+import service from 'service'
 
 const handler: NextApiHandler = async (req, res) => {
   const cookies = parseCookies({ req })
@@ -19,11 +17,6 @@ const handler: NextApiHandler = async (req, res) => {
         }
       }
     )
-    // const { data } = await OrderService.getOrders({
-    //   token: cookies.access_token || req.headers.authorization,
-    //   limit: Number(req.query.limit) || 10,
-    //   offset: Number(req.query.offset) || 0,
-    // })
 
     return res.json(data)
   } catch (e) {

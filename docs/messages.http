@@ -2,23 +2,19 @@
 GET https://api.mercadolibre.com/messages/packs/2000002751935719/sellers/166877629
 Authorization: Bearer APP_USR-8756892310430960-110123-84db5f97ee2b02556cf4c566af90a69b-166877629
 
-
+@packId = 5414105419
+@sellerId = 166877629
+@buyerId = 269668704
+@text = Hola. ¡Gracias por tu compra!\nEstamos preparando tu pedido para ser despachado. Si tienes alguna duda o te gustaría adquirir otro producto, puedes escribirnos al wap 3182668191 donde ofrecemos descuentos y más.\nSomos Getito
 
 ### Send message
-POST https://api.mercadolibre.com/messages/packs/4980859491/sellers/166877629?application_id=8756892310430960
-Cache-Control: no-cache
+POST https://api.mercadolibre.com/messages/action_guide/packs/{{packId}}/option
 Content-Type: application/json
-Authorization: Bearer APP_USR-8756892310430960-110123-84db5f97ee2b02556cf4c566af90a69b-166877629
+Authorization: Bearer {{token}}
 
 {
-    "from": {
-        "user_id": 166877629
-    },
-    "to": {
-        "user_id": 293067897
-    },
-    "text": "Hola, DEEEPPURPLE1984. ¡Gracias por tu compra! Estamos preparando tu pedido para ser despachado. Si tienes alguna duda o te gustaría adquirir otro producto, puedes escribirnos al 3182668191.",
-    "attachments": ""
+    "option_id": "OTHER",
+    "text": "Hola. ¡Gracias por tu compra! Estamos preparando tu pedido para ser despachado. Si tienes alguna duda o te gustaría adquirir otro producto, puedes escribirnos al wap donde ofrecemos descuentos y más. Somos Getito"
 }
 
 ### Send message 2
@@ -35,3 +31,22 @@ Content-Type: application/json
 ### Obtener mensajes
 GET https://api.mercadolibre.com/messages/2000002751935719
 Authorization: Bearer APP_USR-8756892310430960-110123-84db5f97ee2b02556cf4c566af90a69b-166877629
+
+
+// My Api
+### Enviar mensaje
+POST {{apiUrl}}/messages
+Authorization: APP_USR-8756892310430960-041801-3aa4094aaad37ded5958a0d091787eef-166877629
+Content-Type: application/json
+
+{
+    "packId": 5415814474,
+    "text": "Hola. ¡Gracias por tu compra!\\nEstamos preparando tu pedido para ser despachado.\\nSi tienes alguna duda o te gustaría adquirir otro producto, puedes escribirnos al wap 3182668191 donde ofrecemos descuentos y más.\\nSomos Getito"
+}
+
+### Prueba
+POST {{apiUrl}}/messages/1
+
+{
+    "prueba": "hola"
+}

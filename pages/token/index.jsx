@@ -7,27 +7,8 @@ import { Button } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function TokenPage({ responseToken, responseUser }) {
-  // const router = useRouter()
   useEffect(() => {
-    console.log(responseToken, responseUser);
     Cookies.set("access_token", responseToken.access_token, { expires: 0.25 }); // 6 hours
-    // Cookies.set('refresh_token', responseToken.refresh_token)
-    // console.log(
-    //   Cookies.set('refresh_token', responseToken),
-    //   Cookies.set('access_token', responseToken)
-    // )
-    // fetch('https://api.mercadolibre.com/oauth/token', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //   },
-    // })
-    // if (router.query.code) {
-    //   TokenService.getAccessToken(router.query.code)
-    //     .then(data => console.log(data))
-    //     .catch(error => console.error(error))
-    // }
   }, []);
 
   const copyToken = () => {

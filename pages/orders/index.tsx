@@ -16,8 +16,6 @@ import { useRouter } from 'next/router'
 export default function OrdersPage({ initialData }) {
   const router = useRouter();
 
-  console.log(initialData)
-
   const currentPage = Number(router.query.page)
   // 10 = limit
   const offset = currentPage === 1 ? 0 : 10 * (currentPage - 1)
@@ -78,8 +76,6 @@ export const getServerSideProps = async (ctx) => {
       token: access_token,
       offset: offset,
     })
-
-    console.log(data)
     
     return {
       props: {
