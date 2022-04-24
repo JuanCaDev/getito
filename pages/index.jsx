@@ -29,7 +29,7 @@ export default function IndexPage() {
   // });
 
   const { order, isLoading, isError } = useOrder({
-    id: 5397976177,
+    id: 5402863581,
     options: {
       revalidateIfStale: false,
       revalidateOnFocus: false,
@@ -37,14 +37,12 @@ export default function IndexPage() {
     },
   });
 
-  console.log(order);
-
   useEffect(() => {
     const token = Cookies.get("access_token");
     if (!token) {
       Cookies.set(
         "access_token",
-        "APP_USR-8756892310430960-041004-567c330313e0f421fa46e2380411c3f6-166877629"
+        "APP_USR-8756892310430960-041719-46298b93d1c72bc3bc0de8353b3b9937-166877629"
       );
     }
   }, []);
@@ -85,7 +83,6 @@ export default function IndexPage() {
   return (
     <>
       <h1>Restart token</h1>
-      <h2>Restart token</h2>
       <Link href="/login">
         <a>
           <Button>Ir a loginss</Button>
@@ -96,7 +93,6 @@ export default function IndexPage() {
           <Button>Ir a ordenes</Button>
         </a>
       </Link>
-      <h3>Restart token</h3>
       {!isLoading && !isError && <DynamicComponent order={order} />}
       {/* <PDFViewer>
         <MyDocument />

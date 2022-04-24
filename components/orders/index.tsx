@@ -2,7 +2,6 @@ import { VStack } from '@chakra-ui/layout'
 import Order from './order'
 
 function Orders({ orders }) {
-  console.log(orders)
   if (orders) {
     return (
       <div>

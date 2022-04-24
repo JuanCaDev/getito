@@ -4,6 +4,7 @@ import { ChakraProvider } from "@chakra-ui/react"
 import { Box } from '@chakra-ui/layout'
 import Axios from 'axios'
 import Cookies from 'js-cookie'
+import { NextUIProvider } from '@nextui-org/react';
 
 import '../styles/index.css'
 import Nav from '@/components/nav'
@@ -23,7 +24,7 @@ function MyApp({ Component, pageProps }) {
           fetcher: (url, headersValue) =>
             Axios(url, {
               headers: {
-                "Authorization": 'Bearer ' + accessToken,
+                "authorization": 'Bearer ' + accessToken,
                 // "Content-Type": "application/json;charset=utf-8",
                 // "Transfer-Encoding": "chunked",
                 // "Connection": "keep-alive",
@@ -31,8 +32,8 @@ function MyApp({ Component, pageProps }) {
                 // "content-encoding": "gzip",
                 // "X-Content-Type-Options": "nosniff",
                 // "Access-Control-Allow-Headers" : "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "OPTIONS, POST, GET, DELETE",
+                // "access-control-allow-origin": "*",
+                // "access-control-allow-methods": "OPTIONS, POST, GET, DELETE",
                 // "Access-Control-Max-Age": "86400",
                 // "Content-Type": "text/event-stream",
                 // "Cache-Control": "no-cache",
@@ -43,13 +44,15 @@ function MyApp({ Component, pageProps }) {
             }).then((r) => r.data),
         }}
       >
-        <ChakraProvider>
-          <Box bg="gray.100" minHeight="100vh">
-            <Nav />
-            <Component {...pageProps} />
-          </Box>
-          {/* <Footer /> */}
-        </ChakraProvider>
+        <NextUIProvider>
+          <ChakraProvider>
+            <Box bg="gray.100" minHeight="100vh">
+              <Nav />
+              <Component {...pageProps} />
+            </Box>
+            {/* <Footer /> */}
+          </ChakraProvider>
+        </NextUIProvider>
       </SWRConfig>
     </>
   )

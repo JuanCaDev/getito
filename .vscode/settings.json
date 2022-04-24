@@ -1,0 +1,23 @@
+{
+  "rest-client.environmentVariables": {
+    "$shared": {
+        "version": "v1",
+        "prodToken": "foo",
+        "nonProdToken": "APP_USR-8756892310430960-041719-46298b93d1c72bc3bc0de8353b3b9937-166877629"
+    },
+    "local": {
+        "version": "v2",
+        "apiUrlMl": "https://api.mercadolibre.com",
+        "apiUrl": "http://localhost:3010/api",
+        "token": "{{$shared nonProdToken}}",
+        "secretKey": "devSecret"
+    },
+    "production": {
+        "host": "example.com",
+        "apiUrlMl": "https://api.mercadolibre.com",
+        "apiUrl": "https://getito.vercel.app/api",
+        "token": "{{$shared prodToken}}",
+        "secretKey" : "prodSecret"
+    }
+  }
+}

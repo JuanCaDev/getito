@@ -1,0 +1,3 @@
+### Obtener mensajes por pack
+GET https://api.mercadolibre.com/users/131680551
+Authorization: {{token}}
