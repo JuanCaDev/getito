@@ -1,2 +1,8 @@
 ### Obtener productos
 GET https://api.mercadolibre.com/sites/MCO/search?seller_id=166877629
+
+
+
+// Linio
+### Crear producto
+POST https://sellercenter-api.linio.com.mx/?Action=ProductCreate&Format=JSON&UserID=CO5YUF0&Version=1.0&Signature

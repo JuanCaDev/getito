@@ -1,0 +1,7 @@
+### Obtener notificaciones
+POST https://getito.vercel.app/notifications
+Authorization: Bearer APP_USR-8756892310430960-042323-b1e4c3949f608b737f48eae692f94fc1-166877629
+
+### Obtener notificaciones
+GET https://api.mercadolibre.com/missed_feeds?app_id=8756892310430960&topic=orders_v2&sort=date_desc&offset=1&limit=5
+Authorization: Bearer APP_USR-8756892310430960-042323-b1e4c3949f608b737f48eae692f94fc1-166877629
