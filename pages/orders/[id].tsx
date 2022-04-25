@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { useMessagesPack } from '@/lib/messages-hooks'
 import Button from '@/components/button'
 import { Box, Text } from '@chakra-ui/layout'
+import { GridItem } from '@chakra-ui/react'
 import { convertToCOP } from '@/lib/utils'
 import Axios from 'axios'
 
@@ -64,28 +65,37 @@ export default function OrderDetails({ order, shipping }) {
   const detailsSymmary = (order_item) => {
     console.log(order_item)
     const convertUSDToCOP = (value) => Number(value) * 3900
-    const salePrice = order_item.unit_price - order_item.sale_fee - shipping.lead_time.list_cost
-    const salesProfit = order_item.unit_price - order_item.sale_fee - shipping.lead_time.list_cost
-    console.log(order_item.unit_price, order_item.sale_fee, shipping.lead_time.list_cost)
-    return productSheet.map(product => <Box display="grid" gridTemplateColumns="1fr 1fr">
+    const totalSaleSummary = order_item.unit_price - order_item.sale_fee - shipping.lead_time.list_cost
+    
+    return productSheet.map(product => <Box display="grid" gridTemplateColumns="1fr 1fr" key={product[0]}>
       {order_item.item.id === product[0] && <>
         <Text fontSize="sm">Precio compra USD</Text>
         <Text fontSize="sm" textAlign="right">${product[3]}</Text>
         
         <Text fontSize="sm">Precio compra COP</Text>
         <Text fontSize="sm" textAlign="right">{convertToCOP(convertUSDToCOP(product[3]))}</Text>
+
+        <GridItem colSpan={2} my="2">
+          <Box borderTop="1px" borderColor="lightgray"></Box>
+        </GridItem>
+
+        <Text fontSize="sm">Precio venta COP</Text>
+        <Text fontSize="sm" textAlign="right">{convertToCOP(order_item.unit_price)}</Text>
         
         <Text fontSize="sm">Pago comisión ML COP</Text>
         <Text fontSize="sm" textAlign="right">{convertToCOP(order_item.sale_fee)}</Text>
         
-        <Text fontSize="sm">Precio venta COP</Text>
-        <Text fontSize="sm" textAlign="right">{convertToCOP(salePrice)}</Text>
-        
         <Text fontSize="sm">Precio envío COP</Text>
         <Text fontSize="sm" textAlign="right">{convertToCOP(shipping.lead_time.list_cost)}</Text>
         
+        <Text fontSize="sm">Precio restante venta COP</Text>
+        <Text fontSize="sm" textAlign="right">{convertToCOP(totalSaleSummary)}</Text>
+        
         <Text fontSize="sm" fontWeight="semibold">Ganancia COP</Text>
-        <Text fontSize="sm" fontWeight="semibold" textAlign="right">{convertToCOP(salesProfit - convertUSDToCOP(product[3]))}</Text>
+        <Text fontSize="sm" fontWeight="semibold" textAlign="right">
+          {(((totalSaleSummary - convertUSDToCOP(product[3])) / order_item.unit_price) * 100).toFixed(2)}%{" - "}
+          {convertToCOP(totalSaleSummary - convertUSDToCOP(product[3]))}
+        </Text>
       </>}
     </Box>)
   }
