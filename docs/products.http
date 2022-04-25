@@ -1,6 +1,16 @@
 ### Obtener productos
 GET https://api.mercadolibre.com/sites/MCO/search?seller_id=166877629
 
+### Obtener producto
+GET https://api.mercadolibre.com/items/MCO652717196
+Authorization: Bearer APP_USR-8756892310430960-042422-39dec71d79c8a890f0e96967e780f857-166877629
+
+
+// My api
+
+### Obtener producto
+GET http://localhost:3010/api/items/MCO401912
+
 
 
 // Linio

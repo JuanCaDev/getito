@@ -1,0 +1,4 @@
+## Obtener detalles de envío
+GET https://api.mercadolibre.com/shipments/41327169303
+Authorization: Bearer APP_USR-8756892310430960-042422-39dec71d79c8a890f0e96967e780f857-166877629
+x-format-new: true
