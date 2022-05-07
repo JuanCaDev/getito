@@ -4,7 +4,8 @@ import { ChakraProvider } from "@chakra-ui/react"
 import { Box } from '@chakra-ui/layout'
 import Axios from 'axios'
 import Cookies from 'js-cookie'
-import { NextUIProvider } from '@nextui-org/react';
+import { NextUIProvider, createTheme } from '@nextui-org/react';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 import '../styles/index.css'
 import Nav from '@/components/nav'
@@ -14,8 +15,12 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
   const accessToken = Cookies.get('access_token') || "";
+
+  const darkTheme = createTheme({
+    type: 'dark'
+  })
 
   return (
     <>
@@ -25,37 +30,29 @@ function MyApp({ Component, pageProps }) {
             Axios(url, {
               headers: {
                 "authorization": 'Bearer ' + accessToken,
-                // "Content-Type": "application/json;charset=utf-8",
-                // "Transfer-Encoding": "chunked",
-                // "Connection": "keep-alive",
-                // "vary": "accept-encoding",
-                // "content-encoding": "gzip",
-                // "X-Content-Type-Options": "nosniff",
-                // "Access-Control-Allow-Headers" : "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
-                // "access-control-allow-origin": "*",
-                // "access-control-allow-methods": "OPTIONS, POST, GET, DELETE",
-                // "Access-Control-Max-Age": "86400",
-                // "Content-Type": "text/event-stream",
-                // "Cache-Control": "no-cache",
-                // "Connection": "keep-alive",
-                // "X-Accel-Buffering": "no",
                 ...headersValue
               }
             }).then((r) => r.data),
         }}
       >
-        <NextUIProvider>
-          <ChakraProvider>
-            <Box bg="gray.100" minHeight="100vh">
-              <Nav />
-              <Component {...pageProps} />
-            </Box>
-            {/* <Footer /> */}
-          </ChakraProvider>
-        </NextUIProvider>
+        <NextThemesProvider
+          defaultTheme="dark"
+          attribute='class'
+          value={{
+            dark: darkTheme.className
+          }}
+        >
+          <NextUIProvider>
+            <ChakraProvider>
+              <Box bg="blue.900" minHeight="100vh">
+                <Nav />
+                <Component {...pageProps} />
+              </Box>
+              {/* <Footer /> */}
+            </ChakraProvider>
+          </NextUIProvider>
+        </NextThemesProvider>
       </SWRConfig>
     </>
   )
 }
-
-export default MyApp

@@ -38,8 +38,9 @@
     "pages/login/index.jsx",
     "pages/home/index.jsx",
     "pages/index.jsx",
-    "hooks/useForm.jsx"
-  ],
+    "hooks/useForm.jsx",
+    "services/scrapper/ProductScrapperService.js",
+    "pages/api/amazon/products/[id].js"  ],
   "exclude": [
     "node_modules"
   ]
