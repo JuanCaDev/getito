@@ -16,6 +16,7 @@ import Button from "@/components/button";
 // } from "@react-pdf/renderer";
 
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 
 const DynamicComponent = dynamic(() => import("@/components/MyDocument"), {
   ssr: false,
@@ -28,6 +29,8 @@ export default function IndexPage() {
   //   revalidateOnReconnect: false,
   // });
 
+  const router = useRouter();
+
   const { order, isLoading, isError } = useOrder({
     id: 5402863581,
     options: {
@@ -37,15 +40,13 @@ export default function IndexPage() {
     },
   });
 
+  if (process.env.NODE_ENV === "development" && router?.query?.access_token) {
+    Cookies.set("access_token", router.query.access_token, { expires: 0.25 }); // 6 hours
+  }
+
   useEffect(() => {
-    const token = Cookies.get("access_token");
-    if (!token) {
-      Cookies.set(
-        "access_token",
-        "APP_USR-8756892310430960-041719-46298b93d1c72bc3bc0de8353b3b9937-166877629"
-      );
-    }
-  }, []);
+
+  }, [])
 
   // console.log(orders, isLoading, isError);
 
