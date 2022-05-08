@@ -11,13 +11,11 @@ export default function TokenPage({ responseToken, responseUser }) {
 
   useEffect(() => {
     Cookies.set("access_token", responseToken.access_token, { expires: 0.25 }); // 6 hours  getAccessToken
-    if (process.env.NODE_ENV === "development") {
-      router.push(`http://localhost:3010/?access_token=${responseToken.access_token}`);
-    }
   }, []);
 
   const copyToken = () => {
     navigator.clipboard.writeText(responseToken.access_token);
+    router.push(`http://localhost:3010/?access_token=${responseToken.access_token}`);
   }
 
   return (
