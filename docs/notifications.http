@@ -8,6 +8,9 @@ Authorization: Bearer APP_USR-8756892310430960-042323-b1e4c3949f608b737f48eae692
 
 ### Obtener notificaciones
 POST http://localhost:3010/api/notifications
+content-type: application/json
+
+{"topic":"orders_v2 prueba","resource":"/orders/2000003633094720","user_id":166877629,"application_id":8756892310430960,"sent":"2022-05-31T13:25:34.966Z","attempts":7,"received":"2022-05-31T12:21:54.691Z"}
 
 ### Obtener notificaciones
 POST http://getito.vercel.app/api/notifications
