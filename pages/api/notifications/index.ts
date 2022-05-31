@@ -12,7 +12,9 @@ const handler: NextApiHandler = async (req, res) => {
       text: JSON.stringify(req.body)
     })
 
-    return res.json(response)
+    console.log(response)
+
+    return res.status(200).json({ message: 'ok' })
   } catch (e) {
     console.log(e)
     res.status(500).json({ message: e.message, error: e })

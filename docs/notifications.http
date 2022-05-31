@@ -8,3 +8,11 @@ Authorization: Bearer APP_USR-8756892310430960-042323-b1e4c3949f608b737f48eae692
 
 ### Obtener notificaciones
 POST http://localhost:3010/api/notifications
+
+### Obtener notificaciones
+POST http://getito.vercel.app/api/notifications
+content-type: application/json
+
+{
+  "msg": "test message"
+}
