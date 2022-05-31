@@ -7,14 +7,16 @@ import { Button } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function TokenPage({ responseToken, responseUser }) {
+  const router = useRouter();
+
   useEffect(() => {
-    Cookies.set("access_token", responseToken.access_token, { expires: 0.25 }); // 6 hours
+    Cookies.set("access_token", responseToken.access_token, { expires: 0.25 }); // 6 hours  getAccessToken
   }, []);
 
   const copyToken = () => {
     navigator.clipboard.writeText(responseToken.access_token);
+    router.push(`http://localhost:3010/?access_token=${responseToken.access_token}`);
   }
-
 
   return (
     <>

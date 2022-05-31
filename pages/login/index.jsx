@@ -44,15 +44,15 @@ export default function LoginPage() {
               placeholder="Ingresa la contraseña"
             />
             <FormErrorMessage>{errorMessage}</FormErrorMessage>
+            <Button
+              onClick={handleClick}
+              colorScheme="blue"
+              isFullWidth={true}
+              marginTop="2"
+            >
+              Entrar
+            </Button>
           </FormControl>
-          <Button
-            onClick={handleClick}
-            colorScheme="blue"
-            isFullWidth={true}
-            marginTop="2"
-          >
-            Entrar
-          </Button>
         </Box>
         {/* <div>
           <label htmlFor="password" className="form-label">Contraseña</label>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Container from '@/components/container'
+import { Text } from '@nextui-org/react'
 
 export default function Nav() {
   return (
@@ -7,10 +8,10 @@ export default function Nav() {
       <nav>
         <div className="flex items-center justify-between">
           <Link href="/orders?page=1">
-            Órdenes
+            <Text>Órdenes</Text>
           </Link>
           <Link href="/products">
-            Productos
+            <Text>Productos</Text>
           </Link>
         </div>
       </nav>
