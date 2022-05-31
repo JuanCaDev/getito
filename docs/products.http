@@ -15,4 +15,7 @@ GET http://localhost:3010/api/items/MCO401912
 
 // Linio
 ### Crear producto
-POST https://sellercenter-api.linio.com.mx/?Action=ProductCreate&Format=JSON&UserID=CO5YUF0&Version=1.0&Signature
+POST https://sellercenter-api.linio.com.mx/?Action=ProductCreate&Format=JSON&UserID=CO5YUF0&Version=1.0&Signature=b221d9dbb083a7f33428d7c2a3c3198ae925614d70210e28716ccaa7cd4ddb79
+
+### Obtener productos
+GET https://sellercenter-api.linio.com.co/?Action=GetProducts&Timestamp=2022-05-05T02:14:53.174Z&UserID=CO5YUF0&Version=1.0&Signature=h5dQsM0EVvIge9UTE5NC7kvifF9cShRXGva0qgd0fUo=
