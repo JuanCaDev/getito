@@ -21,7 +21,6 @@ import MessageService from "services/MessageService"
 import { useProduct } from "@/lib/products-hooks"
 import serviceMl from "serviceMl"
 
-
 const messageSchema = Yup.object().shape({
   msg: Yup.string()
     .min(2, '¡Muy corto!')
@@ -77,7 +76,6 @@ function Order({ order }) {
       .catch((err) => setErrorMsg(err.message))
   }
 
-  
 
   return (
     <>

@@ -9,6 +9,7 @@
         "version": "v2",
         "apiUrlMl": "https://api.mercadolibre.com",
         "apiUrl": "http://localhost:3010/api",
+        "siteId": "MCO",
         "token": "{{$shared nonProdToken}}",
         "secretKey": "devSecret"
     },

@@ -11,6 +11,12 @@ import { GridItem } from '@chakra-ui/react'
 import { convertToCOP } from '@/lib/utils'
 import Axios from 'axios'
 
+import dynamic from "next/dynamic";
+
+const OrderPDF = dynamic(() => import("@/components/pdf/OrderPDF"), {
+  ssr: false,
+});
+
 export default function OrderDetails({ order, shipping }) {
   const router = useRouter()
   const { id } = router.query
@@ -130,8 +136,10 @@ export default function OrderDetails({ order, shipping }) {
           <Text fontSize="sm">{payment.reason.substr(0, 30)}...</Text>
           <Text fontSize="sm" textAlign="right">{convertToCOP(payment.total_paid_amount)}</Text>
         </Box>)}
-      <Text fontWeight="semibold">Total: {convertToCOP(order.total_amount)}</Text>  
+        <Text fontWeight="semibold">Total: {convertToCOP(order.total_amount)}</Text>  
       </Box>
+      
+      <OrderPDF order={order} />
     </>
   )
 }

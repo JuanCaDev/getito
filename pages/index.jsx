@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { useOrder } from "@/lib/orders-hooks";
+// import { useOrder } from "@/lib/orders-hooks";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 // import Service from 'services/service'
@@ -15,12 +15,12 @@ import Button from "@/components/button";
 //   PDFViewer,
 // } from "@react-pdf/renderer";
 
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
-const DynamicComponent = dynamic(() => import("@/components/MyDocument"), {
-  ssr: false,
-});
+// const DynamicComponent = dynamic(() => import("@/components/pdf/OrderPDF"), {
+//   ssr: false,
+// });
 
 export default function IndexPage() {
   // const { orders, isLoading, isError } = useOrders({
@@ -31,24 +31,20 @@ export default function IndexPage() {
 
   const router = useRouter();
 
-  const { order, isLoading, isError } = useOrder({
-    id: 5402863581,
-    options: {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    },
-  });
+  // const { order, isLoading, isError } = useOrder({
+  //   id: 2000003512730012,
+  //   options: {
+  //     revalidateIfStale: false,
+  //     revalidateOnFocus: false,
+  //     revalidateOnReconnect: false,
+  //   },
+  // });
 
   if (process.env.NODE_ENV === "development" && router?.query?.access_token) {
     Cookies.set("access_token", router.query.access_token, { expires: 0.25 }); // 6 hours
   }
 
-  useEffect(() => {
-
-  }, [])
-
-  // console.log(orders, isLoading, isError);
+  // console.log(order, isLoading, isError);
 
   // if (isLoading) {
   //   return <p>Cargando...</p>;
@@ -94,7 +90,7 @@ export default function IndexPage() {
           <Button>Ir a ordenes</Button>
         </a>
       </Link>
-      {!isLoading && !isError && <DynamicComponent order={order} />}
+      {/* {!isLoading && !isError && <DynamicComponent order={order} />} */}
       {/* <PDFViewer>
         <MyDocument />
       </PDFViewer> */}
