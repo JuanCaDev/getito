@@ -22,6 +22,8 @@ export default function OrdersPage({ initialData }) {
 
   const orders = initialData
 
+  console.log(orders)
+
   // console.log(isLoading, isError)
 
   // if (isLoading) {

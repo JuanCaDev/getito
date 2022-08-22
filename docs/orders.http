@@ -2,11 +2,11 @@
 
 // My Api
 ### Obtener órdenes
-GET {{apiUrl}}/{{resource}}
+GET https://api.mercadolibre.com/orders/search?seller=166877629&sort=date_desc&page=1
     ?page=1
     &limit=3
     &offset=3
-Authorization: {{token}}
+Authorization: Bearer APP_USR-1425564282392279-082123-75bf97eb3bb756a8703c0e883e310277-166877629
 
 // ML Api
 

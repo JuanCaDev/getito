@@ -4,6 +4,17 @@ import Cookies from 'js-cookie'
 // const resource = '/items'
 
 export default {
+  getProducts({ token = "", userId }) {
+    const TOKEN = Cookies.get('access_token') || token
+    return Service.get(`/sites/MCO/search?seller_id=${process.env.NEXT_PUBLIC_ML_SELLER_ID}`, 
+      {
+        headers: {  
+          'Authorization': `Bearer ${TOKEN}`
+        }
+      }
+    )
+  },
+
   getProduct({ token = "", id }) {
     const TOKEN = Cookies.get('access_token') || token
     return Service.get(`/items/${id}`, 
@@ -12,7 +23,7 @@ export default {
           'Authorization': `Bearer ${TOKEN}`
         }
       }
-      )
+    )
   },
 
   getProductByCategoryId({ token = "", categoryId = "" }) {

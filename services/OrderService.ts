@@ -4,8 +4,8 @@ import Cookies from 'js-cookie'
 const resource = '/orders'
 
 export default {
-  getOrders({ token = "", limit = 10, offset = 0 }) {
-    return Service.get(`${resource}/search?seller=${process.env.NEXT_PUBLIC_ML_SELLER_ID}&sort=date_desc&limit=${limit}&offset=${offset}`, 
+  getOrders({ token = "", limit = 10, offset = 0, page = 1 }) {
+    return Service.get(`${resource}/search?seller=${process.env.NEXT_PUBLIC_ML_SELLER_ID}&sort=date_desc&page=${page}`, 
       {
         headers: {  
           'Authorization': `Bearer ${token}`

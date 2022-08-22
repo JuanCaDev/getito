@@ -8,7 +8,7 @@ import { useMessagesPack } from '@/lib/messages-hooks'
 import Button from '@/components/button'
 import { Box, Text } from '@chakra-ui/layout'
 import { GridItem } from '@chakra-ui/react'
-import { convertToCOP } from '@/lib/utils'
+import { formatToCOP } from '@/lib/utils'
 import Axios from 'axios'
 
 import dynamic from "next/dynamic";
@@ -70,7 +70,7 @@ export default function OrderDetails({ order, shipping }) {
 
   const detailsSymmary = (order_item) => {
     console.log(order_item)
-    const convertUSDToCOP = (value) => Number(value) * 3900
+    const convertUSDToCOP = (value) => Number(value) * Number(process.env.NEXT_PUBLIC_DOLAR)
     const totalSaleSummary = order_item.unit_price - order_item.sale_fee - shipping.lead_time.list_cost
     
     return productSheet.map(product => <Box display="grid" gridTemplateColumns="1fr 1fr" key={product[0]}>
@@ -79,28 +79,28 @@ export default function OrderDetails({ order, shipping }) {
         <Text fontSize="sm" textAlign="right">${product[3]}</Text>
         
         <Text fontSize="sm">Precio compra COP</Text>
-        <Text fontSize="sm" textAlign="right">{convertToCOP(convertUSDToCOP(product[3]))}</Text>
+        <Text fontSize="sm" textAlign="right">{formatToCOP(convertUSDToCOP(product[3]))}</Text>
 
         <GridItem colSpan={2} my="2">
           <Box borderTop="1px" borderColor="lightgray"></Box>
         </GridItem>
 
         <Text fontSize="sm">Precio venta COP</Text>
-        <Text fontSize="sm" textAlign="right">{convertToCOP(order_item.unit_price)}</Text>
+        <Text fontSize="sm" textAlign="right">{formatToCOP(order_item.unit_price)}</Text>
         
         <Text fontSize="sm">Pago comisión ML COP</Text>
-        <Text fontSize="sm" textAlign="right">{convertToCOP(order_item.sale_fee)}</Text>
+        <Text fontSize="sm" textAlign="right">{formatToCOP(order_item.sale_fee)}</Text>
         
         <Text fontSize="sm">Precio envío COP</Text>
-        <Text fontSize="sm" textAlign="right">{convertToCOP(shipping.lead_time.list_cost)}</Text>
+        <Text fontSize="sm" textAlign="right">{formatToCOP(shipping.lead_time.list_cost)}</Text>
         
         <Text fontSize="sm">Precio restante venta COP</Text>
-        <Text fontSize="sm" textAlign="right">{convertToCOP(totalSaleSummary)}</Text>
+        <Text fontSize="sm" textAlign="right">{formatToCOP(totalSaleSummary)}</Text>
         
         <Text fontSize="sm" fontWeight="semibold">Ganancia COP</Text>
         <Text fontSize="sm" fontWeight="semibold" textAlign="right">
           {(((totalSaleSummary - convertUSDToCOP(product[3])) / order_item.unit_price) * 100).toFixed(2)}%{" - "}
-          {convertToCOP(totalSaleSummary - convertUSDToCOP(product[3]))}
+          {formatToCOP(totalSaleSummary - convertUSDToCOP(product[3]))}
         </Text>
       </>}
     </Box>)
@@ -114,7 +114,7 @@ export default function OrderDetails({ order, shipping }) {
         <Box bg="white" boxShadow="sm" borderRadius="md" px="3" py="2" key={order_item.item.id}> 
           <Text lineHeight="initial" mb="1">{order_item.item.title}</Text>
           <Text color="gray.500" fontSize="sm">SKU {order_item.item.seller_sku}</Text>
-          <Text color="gray.500" fontSize="sm">{convertToCOP(order_item.full_unit_price)} x {order_item.quantity}</Text>
+          <Text color="gray.500" fontSize="sm">{formatToCOP(order_item.full_unit_price)} x {order_item.quantity}</Text>
           {detailsSymmary(order_item)}
         </Box>
       </>)}
@@ -132,11 +132,11 @@ export default function OrderDetails({ order, shipping }) {
       <Box bg="white" boxShadow="sm" borderRadius="md" px="3" py="2"> 
         {order.payments.map((payment) => <Box display="grid" gridTemplateColumns="1fr 1fr" mb="1" key={payment.id}>
           <Text fontSize="sm">Envío</Text>
-          <Text fontSize="sm" textAlign="right">{convertToCOP(shipping.lead_time.list_cost)}</Text>
+          <Text fontSize="sm" textAlign="right">{formatToCOP(shipping.lead_time.list_cost)}</Text>
           <Text fontSize="sm">{payment.reason.substr(0, 30)}...</Text>
-          <Text fontSize="sm" textAlign="right">{convertToCOP(payment.total_paid_amount)}</Text>
+          <Text fontSize="sm" textAlign="right">{formatToCOP(payment.total_paid_amount)}</Text>
         </Box>)}
-        <Text fontWeight="semibold">Total: {convertToCOP(order.total_amount)}</Text>  
+        <Text fontWeight="semibold">Total: {formatToCOP(order.total_amount)}</Text>  
       </Box>
       
       <OrderPDF order={order} />

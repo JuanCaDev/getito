@@ -16,7 +16,7 @@ import { Button, Textarea, Link } from "@chakra-ui/react"
 import * as Yup from 'yup';
 import { useForm } from "hooks/useForm"
 import { useState } from "react"
-import { convertToCOP } from "@/lib/utils"
+import { formatToCOP } from "@/lib/utils"
 import MessageService from "services/MessageService"
 import { useProduct } from "@/lib/products-hooks"
 import serviceMl from "serviceMl"
@@ -86,7 +86,7 @@ function Order({ order }) {
               <Text lineHeight="initial" mb="1">{order_item.item.title}</Text>
               <Text color="gray.500" fontSize="sm">SKU {order_item.item.seller_sku}</Text>
               <Text color="gray.500" fontSize="sm">
-                {convertToCOP(order_item.full_unit_price)} x{" "}
+                {formatToCOP(order_item.full_unit_price)} x{" "}
                 <Text as="span" color={order_item.quantity > 1 && "black"}>{order_item.quantity}</Text>
                 {!isLoadingProduct && product.available_quantity < 4 && (
                   <Text as="span" color={product.available_quantity > 1 ? "orange.400" : "red.400"}>
