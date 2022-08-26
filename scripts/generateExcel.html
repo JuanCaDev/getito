@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Web Page</h1>
+<p>My first paragraph.</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+<script>
+  const removeAccents = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  } 
+
+  function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  const getData = async () => {
+    const sellerId = 166877629
+    // const url1 = `https://api.mercadolibre.com/sites/MCO/search?seller_id=${sellerId}&offset=0`;
+    // const url2 = `https://api.mercadolibre.com/users/${sellerId}/items/search?limit=20`
+    // const url3 = `https://api.mercadolibre.com/users/${sellerId}/items/search?search_type=scan&limit=900`
+    // const url4 = `https://api.mercadolibre.com/sites/MCO/search?seller_id=${sellerId}&offset=0&include_attributes=true`
+    
+    const arrayLength = 750;
+    let MCOs = []
+    for (let i = 0; i < arrayLength; i += 20) {
+      const { data } = await axios.get(`https://api.mercadolibre.com/users/${sellerId}/items/search?limit=20&offset=${i}`, {
+        headers: {
+          Authorization: 'Bearer APP_USR-1425564282392279-082517-321c3ac27cd6432314b52b8ea334699c-166877629'
+        }
+      })
+      MCOs.push(data.results)
+      console.log(data.results, i, arrayLength)
+      await timeout(3000)
+    }
+    console.log(MCOs)
+
+     // console.log(MCOs)
+
+    // const { data } = await axios.get(`https://api.mercadolibre.com/users/${sellerId}/items/search?limit=20&offset=20`, {
+    //       headers: {
+    //         Authorization: 'Bearer APP_USR-1425564282392279-082517-321c3ac27cd6432314b52b8ea334699c-166877629'
+    //       }
+    //     })
+  
+    // console.log(data)
+
+    // setTimeout(async () => {
+    //   const { data: items } = await axios.get(`https://api.mercadolibre.com/items?ids=${data.results}`, {
+    //     headers: {
+    //       Authorization: 'Bearer APP_USR-1425564282392279-082517-321c3ac27cd6432314b52b8ea334699c-166877629'
+    //     }
+    //   })
+
+    //   console.log(items)
+      
+    //   const results = items.map((item) => {
+        
+    //     const { body } = item
+    //     const sku = removeAccents(body.seller_custom_field?.split("__")[0] || "")
+    //     const sku2 = body.attributes.filter((attribute) => attribute.id === "SELLER_SKU")[0]?.value_name
+    //     return {
+    //       sku: sku || sku2,
+    //       titulo: body.title,
+    //       precio: body.base_price
+    //     }
+    //   })
+
+    //   console.log(results)
+    // }, 3000)
+
+    // console.log(items)
+
+    // const publications = data.results.map((publication, index) => ({
+    //   Nombre: publication.title,
+    //   Precio: publication.prices.prices.filter((price) => price.type === 'standard')[0].amount
+    // }))
+
+    // console.log(publications)
+
+    // convertJsonToExcel(publications)
+  }
+
+  // const convertJsonToExcel = (results) => {
+  //     const workSheet = XLSX.utils.json_to_sheet(results);
+  //     const workBook = XLSX.utils.book_new();
+
+  //     XLSX.utils.book_append_sheet(workBook, workSheet, "publicaciones")
+  //     // Generate buffer
+  //     XLSX.write(workBook, { bookType: 'xlsx', type: "buffer" })
+
+  //     // Binary string
+  //     XLSX.write(workBook, { bookType: "xlsx", type: "binary" })
+
+  //     XLSX.writeFile(workBook, "publicaciones.xlsx")
+  // }
+
+  getData()
+</script>
+
+</body>
+</html>
