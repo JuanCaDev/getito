@@ -6,8 +6,8 @@ https://api.mercadolibre.com/users/166877629/items/search?status=paused
 Authorization: Bearer APP_USR-8756892310430960-053017-9bc8944497c7d3ea82f6e4110e51f385-166877629
 
 ### Obtener producto
-GET https://api.mercadolibre.com/items/MCO652717196
-Authorization: Bearer APP_USR-8756892310430960-042422-39dec71d79c8a890f0e96967e780f857-166877629
+GET https://api.mercadolibre.com/items?ids=MCO945575907
+Authorization: Bearer APP_USR-1425564282392279-082712-2283a61d2d96c0d2c2145f2173a3b95d-166877629
 
 @categoryId = 
 ### Obtener ítems listados en una categoría

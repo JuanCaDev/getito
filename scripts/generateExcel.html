@@ -7,6 +7,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+<script src="./dataPublications.js"></script>
 <script>
   const removeAccents = (str) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -22,30 +23,50 @@
     // const url2 = `https://api.mercadolibre.com/users/${sellerId}/items/search?limit=20`
     // const url3 = `https://api.mercadolibre.com/users/${sellerId}/items/search?search_type=scan&limit=900`
     // const url4 = `https://api.mercadolibre.com/sites/MCO/search?seller_id=${sellerId}&offset=0&include_attributes=true`
-    
+      
     const arrayLength = 750;
+    const limit = 20
     let MCOs = []
-    for (let i = 0; i < arrayLength; i += 20) {
-      const { data } = await axios.get(`https://api.mercadolibre.com/users/${sellerId}/items/search?limit=20&offset=${i}`, {
-        headers: {
-          Authorization: 'Bearer APP_USR-1425564282392279-082517-321c3ac27cd6432314b52b8ea334699c-166877629'
-        }
-      })
-      MCOs.push(data.results)
-      console.log(data.results, i, arrayLength)
-      await timeout(3000)
-    }
-    console.log(MCOs)
+    // for (let i = 0; i < arrayLength; i += limit) {
+    //   const { data } = await axios.get(`https://api.mercadolibre.com/users/${sellerId}/items/search?limit=${limit}&offset=${i}`, {
+    //     headers: {
+    //       Authorization: 'Bearer APP_USR-1425564282392279-082712-2283a61d2d96c0d2c2145f2173a3b95d-166877629'
+    //     }
+    //   })
+    //   MCOs.push(data.results)
+    //   console.log(MCOs)
+    //   await timeout(2000)
+    // }
+    // console.log(MCOs)
 
-     // console.log(MCOs)
+    let items = []
 
-    // const { data } = await axios.get(`https://api.mercadolibre.com/users/${sellerId}/items/search?limit=20&offset=20`, {
-    //       headers: {
-    //         Authorization: 'Bearer APP_USR-1425564282392279-082517-321c3ac27cd6432314b52b8ea334699c-166877629'
-    //       }
-    //     })
-  
-    // console.log(data)
+    // for (let i = 0; i < dataPublications.length; i++) {
+    //   const { data } = await axios.get(`https://api.mercadolibre.com/items?ids=MCO945575907`, {
+    //     headers: {
+    //       Authorization: 'Bearer APP_USR-1425564282392279-082712-2283a61d2d96c0d2c2145f2173a3b95d-166877629'
+    //     }
+    //   })
+
+    //   items.push(...data)
+
+    //   console.log(items[i].body)
+
+    //   await timeout(2000)
+    // }
+
+    // const results = items.map((item) => {
+    //   const { body } = item
+    //   const sku = removeAccents(body.seller_custom_field?.split("__")[0] || "")
+    //   const sku2 = body.attributes.filter((attribute) => attribute.id === "SELLER_SKU")[0]?.value_name
+    //   return {
+    //     sku: sku || sku2,
+    //     titulo: body.title,
+    //     precio: body.base_price
+    //   }
+    // })
+
+    // console.log(results)
 
     // setTimeout(async () => {
     //   const { data: items } = await axios.get(`https://api.mercadolibre.com/items?ids=${data.results}`, {

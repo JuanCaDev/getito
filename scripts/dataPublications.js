@@ -1,4 +1,4 @@
-export default [
+const dataPublications = [
   [
       "MCO826315141",
       "MCO626530392",
