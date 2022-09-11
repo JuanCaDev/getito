@@ -23,100 +23,97 @@
     // const url2 = `https://api.mercadolibre.com/users/${sellerId}/items/search?limit=20`
     // const url3 = `https://api.mercadolibre.com/users/${sellerId}/items/search?search_type=scan&limit=900`
     // const url4 = `https://api.mercadolibre.com/sites/MCO/search?seller_id=${sellerId}&offset=0&include_attributes=true`
-      
+    
+    const authorization = "Bearer APP_USR-1425564282392279-090323-31c9723f9a5ef0d5714db35474dee8e3-166877629"
     const arrayLength = 750;
     const limit = 20
     let MCOs = []
-    // for (let i = 0; i < arrayLength; i += limit) {
-    //   const { data } = await axios.get(`https://api.mercadolibre.com/users/${sellerId}/items/search?limit=${limit}&offset=${i}`, {
-    //     headers: {
-    //       Authorization: 'Bearer APP_USR-1425564282392279-082712-2283a61d2d96c0d2c2145f2173a3b95d-166877629'
-    //     }
-    //   })
-    //   MCOs.push(data.results)
-    //   console.log(MCOs)
-    //   await timeout(2000)
-    // }
-    // console.log(MCOs)
+    for (let i = 0; i < arrayLength; i += limit) {
+      const { data } = await axios.get(`https://api.mercadolibre.com/users/${sellerId}/items/search?limit=${limit}&offset=${i}`, {
+        headers: {
+          Authorization: authorization
+        }
+      })
+      MCOs.push(data.results)
+      console.log(MCOs)
+      await timeout(2000)
+    }
+    console.log(MCOs)
 
     let items = []
 
-    // for (let i = 0; i < dataPublications.length; i++) {
-    //   const { data } = await axios.get(`https://api.mercadolibre.com/items?ids=MCO945575907`, {
-    //     headers: {
-    //       Authorization: 'Bearer APP_USR-1425564282392279-082712-2283a61d2d96c0d2c2145f2173a3b95d-166877629'
-    //     }
-    //   })
+    // const mco = "MCO816805476"
 
-    //   items.push(...data)
+    for (let i = 0; i < MCOs.length; i++) {
+      const { data } = await axios.get(`https://api.mercadolibre.com/items?ids=${MCOs[i]}`, {
+        headers: {
+          Authorization: authorization
+        }
+      })
 
-    //   console.log(items[i].body)
+      items.push(...data)
 
-    //   await timeout(2000)
-    // }
+      await timeout(2000)
+    }
 
-    // const results = items.map((item) => {
-    //   const { body } = item
-    //   const sku = removeAccents(body.seller_custom_field?.split("__")[0] || "")
-    //   const sku2 = body.attributes.filter((attribute) => attribute.id === "SELLER_SKU")[0]?.value_name
-    //   return {
-    //     sku: sku || sku2,
-    //     titulo: body.title,
-    //     precio: body.base_price
-    //   }
-    // })
+    let results = []
 
-    // console.log(results)
+    items.forEach((item) => {
+      const { body } = item
+      const brand = body.attributes.filter(item => item.id === "BRAND")[0]?.value_name
+      const model = body.attributes.filter(item => item.id === "MODEL")[0]?.value_name
 
-    // setTimeout(async () => {
-    //   const { data: items } = await axios.get(`https://api.mercadolibre.com/items?ids=${data.results}`, {
-    //     headers: {
-    //       Authorization: 'Bearer APP_USR-1425564282392279-082517-321c3ac27cd6432314b52b8ea334699c-166877629'
-    //     }
-    //   })
+      console.log(body)
 
-    //   console.log(items)
-      
-    //   const results = items.map((item) => {
-        
-    //     const { body } = item
-    //     const sku = removeAccents(body.seller_custom_field?.split("__")[0] || "")
-    //     const sku2 = body.attributes.filter((attribute) => attribute.id === "SELLER_SKU")[0]?.value_name
-    //     return {
-    //       sku: sku || sku2,
-    //       titulo: body.title,
-    //       precio: body.base_price
-    //     }
-    //   })
+      if (body.variations.length > 1) {
+        const dataVariations = body.variations.forEach((variation) => {
+          const sku = variation.seller_custom_field?.split("__")[0]
+          const attributeCombination = variation.attribute_combinations[0]?.value_name
 
-    //   console.log(results)
-    // }, 3000)
+          const result = {
+            sku: sku,
+            titulo: `${body.title} - ${attributeCombination}`,
+            precio: body.original_price || body.base_price,
+            marca: brand,
+            modelo: model
+          }
 
-    // console.log(items)
+          results.push(result)
+        })
+      } else {
+        const sku = removeAccents(body.seller_custom_field?.split("__")[0] || "")
+        const sku2 = body.attributes.filter((attribute) => attribute.id === "SELLER_SKU")[0]?.value_name
 
-    // const publications = data.results.map((publication, index) => ({
-    //   Nombre: publication.title,
-    //   Precio: publication.prices.prices.filter((price) => price.type === 'standard')[0].amount
-    // }))
+        const result = {
+          sku: sku || sku2,
+          titulo: body.title,
+          precio: body.original_price || body.base_price,
+          marca: brand,
+          modelo: model
+        }
 
-    // console.log(publications)
+        results.push(result)
+      }
+  })
 
-    // convertJsonToExcel(publications)
+    console.log(results)
+
+    convertJsonToExcel(results)
   }
 
-  // const convertJsonToExcel = (results) => {
-  //     const workSheet = XLSX.utils.json_to_sheet(results);
-  //     const workBook = XLSX.utils.book_new();
+  const convertJsonToExcel = (results) => {
+      const workSheet = XLSX.utils.json_to_sheet(results);
+      const workBook = XLSX.utils.book_new();
 
-  //     XLSX.utils.book_append_sheet(workBook, workSheet, "publicaciones")
-  //     // Generate buffer
-  //     XLSX.write(workBook, { bookType: 'xlsx', type: "buffer" })
+      XLSX.utils.book_append_sheet(workBook, workSheet, "publicaciones")
+      // Generate buffer
+      XLSX.write(workBook, { bookType: 'xlsx', type: "buffer" })
 
-  //     // Binary string
-  //     XLSX.write(workBook, { bookType: "xlsx", type: "binary" })
+      // Binary string
+      XLSX.write(workBook, { bookType: "xlsx", type: "binary" })
 
-  //     XLSX.writeFile(workBook, "publicaciones.xlsx")
-  // }
+      XLSX.writeFile(workBook, "publicaciones.xlsx")
+  }
 
   getData()
 </script>

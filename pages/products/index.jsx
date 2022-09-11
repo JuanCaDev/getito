@@ -16,11 +16,12 @@ import { useRouter } from 'next/router'
 import { formatToCOP, convertUSDToCOP, percentageOfProfit, saleProfit } from '@/lib/utils'
 import Image from 'next/image'
 import Axios from 'axios'
+import { useEffect } from 'react'
 
-export default function OrdersPage({ initialData, dataSheets }) {
+export default function OrdersPage({ initialData, dataSheets, accessToken }) {
   const router = useRouter();
 
-  console.log(initialData, dataSheets)
+  console.log(initialData, dataSheets, accessToken)
 
   // const currentPage = Number(router.query.page)
   // 10 = limit
@@ -55,12 +56,37 @@ export default function OrdersPage({ initialData, dataSheets }) {
   //     query: router.query,
   //   });
   // }
+
+  const getPrices = async (price, categoryId) => {
+    if (price && categoryId) {
+      try {
+        const { data: dataListingPrice } = await ProductService.getListingPrices({
+          token: accessToken,
+          price: price,
+          categoryId: categoryId
+        })
+    
+        console.log(dataListingPrice)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    return "HOla"
+  }
+
+  useEffect(() => {
+    initialData.results.forEach(async (result) => {
+      getPrices(result.price, result.category_id)
+    })
+  }, [])
+  
   
   return (
     <Container>
       <Text fontSize="xl" as="h1" fontWeight="semibold">Publicaciones</Text>
       <Box bg='white' w='100%' rounded='md'>
-        {initialData.results.map(product => {
+        {initialData?.results?.map(product => {
           const purchasePriceCOP = convertUSDToCOP(product.purchasePrice)
           return (
           <Box w='100%' p={4} key={product.id} display='grid' gridTemplateColumns='auto 1fr' columnGap='4'>
@@ -69,7 +95,8 @@ export default function OrdersPage({ initialData, dataSheets }) {
               <Text>{product.title}</Text>
               <Text>Venta: {formatToCOP(product.price)}</Text>
               {product.purchasePrice > 0 && <>
-                <Text>Compra: {formatToCOP(purchasePriceCOP)}</Text>
+                <Text>Compra: {formatToCOP(purchasePriceCOP)} - USD ${product.purchasePrice}</Text>
+                {/* {getPrices(product.price, product.category_id)} */}
                 <Text>
                   Ganancia: {percentageOfProfit(product.price, purchasePriceCOP)} %
                   - {formatToCOP(saleProfit(product.price, purchasePriceCOP))}
@@ -121,6 +148,7 @@ export const getServerSideProps = async (ctx) => {
       results: dataProducts.results.map((result) => {
         const dataSheet = dataSheets.values.filter((sheet) => sheet[0] === result.id)
         console.log(dataSheet)
+        
         return {
           ...result,
           purchasePrice: dataSheet.length > 0 ? dataSheet[0][3] : 0
@@ -132,7 +160,8 @@ export const getServerSideProps = async (ctx) => {
     return {
       props: {
         initialData: initialData,
-        dataSheets: dataSheets
+        dataSheets: dataSheets,
+        accessToken: access_token
       }
     }
   } catch (error) {
