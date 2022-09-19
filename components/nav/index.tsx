@@ -10,7 +10,7 @@ export default function Nav() {
           <Link href="/orders?page=1">
             <Text>Órdenes</Text>
           </Link>
-          <Link href="/products">
+          <Link href="/products?page=1">
             <Text>Productos</Text>
           </Link>
         </div>

@@ -130,10 +130,11 @@ export default function OrdersPage({ initialData, dataSheets, accessToken }) {
 
 export const getServerSideProps = async (ctx) => {
   const { access_token } = parseCookies(ctx)
-  const { page } = ctx.query
+  let { page } = ctx.query
   const limit = 10
 
   try {
+    page = page ? page : 1;
     const offset = page === 1 ? 0 : (page - 1) * limit;
     const { data: dataProducts } = await ProductService.getProducts({
       token: access_token,
