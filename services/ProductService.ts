@@ -28,7 +28,7 @@ export default {
 
   getProductBySKU({ token = "", sku }) {
     const TOKEN = Cookies.get('access_token') || token
-    return Service.get(`/items/search?sku=${sku}`, 
+    return Service.get(`/users/${process.env.NEXT_PUBLIC_ML_SELLER_ID}/items/search?seller_sku=${sku}`, 
       {
         headers: {  
           'Authorization': `Bearer ${TOKEN}`
