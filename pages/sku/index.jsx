@@ -61,11 +61,11 @@ export default function OrdersPage() {
     // printWindow.document.close();
     // printWindow.print();
     // printWindow.close()
-    var ventana = window.open('', 'PRINT', 'height=600,width=800');
-    ventana.document.write('<html><head><title>' + document.title + '</title>');
-    ventana.document.write('</head><body >');
+    var ventana = window.open('', 'PrintMap', 'height=600,width=800');
+    // ventana.document.write('<html><head><title>' + document.title + '</title>');
+    // ventana.document.write('</head><body >');
     ventana.document.write(container.innerHTML);
-    ventana.document.write('</body></html>');
+    // ventana.document.write('</body></html>');
     ventana.document.close();
     ventana.focus();
     ventana.print();
@@ -90,13 +90,28 @@ export default function OrdersPage() {
           />
           <Button className='inline-block ml-2 align-bottom' auto type='submit'>Traer</Button>
         </form>
-
-        <div id="div-barcode">
-          <Barcode value={product?.sku} format="CODE128" />
-        </div>
+        {product?.sku && (  
+          <div id="div-barcode"
+            style={{
+              maxHeight: "94px",
+              maxWidth: "204px",
+            }}
+          >
+            <Barcode
+              value={product?.sku}
+              format="CODE128"
+              textAlign="left"
+              height={40}
+              width={2.5}
+              margin={0}
+            />
+            <p>{product?.title.substring(0, 40) + "..."}</p>
+          </div>
+        )}
+        
+        <button onClick={onPrintBarcode} style={{ marginTop: "20px", padding: "10px"}}>Imprimir</button>
       </Box>
 
-      <button onClick={onPrintBarcode}>Imprimir</button>
 
     </Container>
   )
