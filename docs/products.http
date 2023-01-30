@@ -17,6 +17,10 @@ Authorization: Bearer APP_USR-1425564282392279-101512-4a8b4fcbc760d68d30e8ab53e9
 ### Obtener ítems listados en una categoría
 GET {{apiUrlMl}}/sites/{{siteId}}/search?category=$CATEGORY_ID
 
+### Obtener precio de venta
+
+GET https://api.mercadolibre.com/sites/MCO/listing_prices/gold_special?price=169700&category_id=MCO413542
+Authorization: Bearer APP_USR-1425564282392279-012917-d6c757ce03259047d64ff5e6ba914399-166877629
 
 // My api
 
