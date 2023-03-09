@@ -3,7 +3,7 @@ GET https://api.mercadolibre.com/sites/MCO/search?seller_id=166877629&without_st
 
 ### Obtener productos
 https://api.mercadolibre.com/users/166877629/items/search?status=paused
-Authorization: Bearer APP_USR-8756892310430960-053017-9bc8944497c7d3ea82f6e4110e51f385-166877629
+Authorization: Bearer APP_USR-1425564282392279-021414-741fa0096b5defad9db93af1f2570597-166877629
 
 ### Obtener producto
 GET https://api.mercadolibre.com/items?ids=MCO832935783&attributes=id,title,price,base_price,original_price,available_quantity,
@@ -11,7 +11,7 @@ Authorization: Bearer APP_USR-1425564282392279-101512-4a8b4fcbc760d68d30e8ab53e9
 
 ### Obtener producto por SKU
 GET https://api.mercadolibre.com/users/166877629/items/search?seller_sku=CAM1
-Authorization: Bearer APP_USR-1425564282392279-101512-4a8b4fcbc760d68d30e8ab53e91341ba-166877629
+Authorization: Bearer APP_USR-1425564282392279-021414-741fa0096b5defad9db93af1f2570597-166877629
 
 @categoryId = 
 ### Obtener ítems listados en una categoría
